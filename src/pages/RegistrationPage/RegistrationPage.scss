@@ -1,0 +1,60 @@
+%border-transition {
+  border: 1px solid #3f9c13;
+  transition: 0.2s;
+
+  &:hover {
+    border-color: black;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+  }
+
+  &:focus {
+    border: 1px solid black;
+  }
+
+  &:active {
+    border: 1px solid black;
+  }
+}
+
+.register {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+
+  &__form {
+    margin: 20px auto;
+    padding: 40px 50px;
+    width: 400px;
+    background: white;
+    border: 1px solid #3f9c13;
+    border-radius: 10px;
+    background-color: #181818;
+
+    &-title {
+      font-size: 35px;
+      margin-bottom: 30px;
+    }
+  }
+
+  &__label {
+    color: white;
+  }
+
+  &__button {
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    background-color: #3f9c13;
+    transition-duration: 500ms;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(102%);
+    }
+  }
+}

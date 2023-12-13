@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import './HomePage.scss';
-import { CardList } from '../components/CardList/CardList';
+import './GamesPage.scss';
+import { CardList } from '../../components/CardList/CardList';
 import { Oval } from 'react-loader-spinner';
-import { GenreSelect } from '../components/GenreSelect/GenreSelect';
-import { getGames } from '../api/games';
+import { GenreSelect } from '../../components/GenreSelect/GenreSelect';
+import { getGames } from '../../api/games';
 import { useSelector, useDispatch } from 'react-redux';
-import { actions as gamesToShowActions } from '../store/gamesToShow';
-import { Loader } from '../components/Loader/Loader';
+import { actions as gamesToShowActions } from '../../store/gamesToShow';
+import { Loader } from '../../components/Loader/Loader';
 
-export const HomePage = () => {
+export const GamesPage = () => {
   const [page, setPage] = useState(1);
   const [loadingMoreGames, setLoadingMoreGames] = useState(false);
   const [haveMoreGames, setHaveMoreGames] = useState(false);
@@ -35,15 +35,15 @@ export const HomePage = () => {
 
   return (
     <>
-      <div className='home'>
-        <h1 className='home_title'>Всі ігри</h1>
+      <div className='games'>
+        <h1 className='games_title'>Всі ігри</h1>
 
         <GenreSelect />
 
         <CardList />
 
         {haveMoreGames && (
-          <button className='home_button' onClick={handleDownloadMoreGames}>
+          <button className='games_button' onClick={handleDownloadMoreGames}>
             {loadingMoreGames ? (
               <Oval
                 height={30}

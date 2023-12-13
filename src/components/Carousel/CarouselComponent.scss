@@ -1,0 +1,117 @@
+.slideshow {
+  margin: 0 auto;
+  overflow: hidden;
+
+  &__back {
+    background-image: url(../../images/icons/ArrowBack.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+
+    width: 32px;
+    height: 320px;
+
+    margin-right: 20px;
+    box-shadow: 0 0 0 20px #181818;
+
+    border: 1px solid #3f9c13;
+    background-color: #181818;
+
+    z-index: 1;
+
+    display: none;
+
+    cursor: pointer;
+
+    transition-duration: 500ms;
+
+    @media (min-width: 640px) {
+      display: block;
+      height: 400px;
+    }
+
+    &:hover {
+      border-color: lime;
+    }
+  }
+
+  &__forward {
+    background-image: url(../../images/icons/ArrowForward.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+
+    width: 32px;
+    height: 320px;
+
+    margin-left: 20px;
+    box-shadow: 0 0 0 20px #181818;
+
+    border: 1px solid #3f9c13;
+    background-color: #181818;
+
+    z-index: 1;
+
+    display: none;
+
+    cursor: pointer;
+
+    @media (min-width: 640px) {
+      display: block;
+      height: 400px;
+    }
+
+    &:hover {
+      border-color: lime;
+    }
+  }
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.slideshowSlider {
+  white-space: nowrap;
+  transition: ease 1000ms;
+  width: 100%;
+}
+
+.slide {
+  display: inline-block;
+
+  height: 320px;
+  width: 100%;
+  max-width: 1040px;
+
+  object-fit: cover;
+
+  @media (min-width: 640px) {
+    height: 400px;
+  }
+}
+
+/* Buttons */
+
+.slideshowDots {
+  text-align: center;
+
+  &__dot {
+    display: inline-block;
+    height: 4px;
+    width: 14px;
+
+    margin: 15px 7px 0px;
+
+    background-color: gray;
+
+    &.active {
+      background-color: #3f9c13;
+    }
+  }
+
+  &__container {
+    display: inline;
+    padding: 10px 0;
+    cursor: pointer;
+  }
+}

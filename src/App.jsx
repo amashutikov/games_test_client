@@ -1,7 +1,10 @@
 import React from 'react';
 import { Header } from './components/Header/Header';
-import { HomePage } from './pages/HomePage';
+// import { GamesPage } from './pages/GamesPage/GamesPage';
+// import { HomePage } from './pages/HomePage/HomePage';
 import './App.css';
+import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage';
+
 // import { Routes, Route, Link, useNavigate, NavLink } from 'react-router-dom';
 
 // import { AccountActivationPage } from './pages/AccountActivationPage';
@@ -11,14 +14,15 @@ import './App.css';
 // import { RequireAuth } from './components/RequireAuth';
 // import { UsersPage } from './pages/UsersPage';
 // import { Loader } from './components/Loader.jsx';
-// import { HomePage } from './pages/HomePage.jsx';
 // import { usePageError } from './hooks/usePageError.js';
 
 function App() {
   return <>
     <Header />
     <main className='main'>
-      <HomePage />
+      {/* <GamesPage /> */}
+      {/* <HomePage /> */}
+      <RegistrationPage />
     </main>
   </>
 }
