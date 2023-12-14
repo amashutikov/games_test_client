@@ -17,16 +17,24 @@
   }
 }
 
+.input_hide {
+  &:hover {
+    cursor: pointer;
+    transform: scale(110%);
+  }
+}
+
 .register {
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
+  letter-spacing: 0.1px;
 
   &__form {
     margin: 20px auto;
     padding: 40px 50px;
-    width: 400px;
+    max-width: 400px;
     background: white;
     border: 1px solid #3f9c13;
     border-radius: 10px;
@@ -55,6 +63,16 @@
     &:hover {
       cursor: pointer;
       transform: scale(102%);
+    }
+  }
+
+  &__message {
+    color: red;
+    display: flex;
+    align-items: center;
+    
+    &.hidden {
+      display: none;
     }
   }
 }
