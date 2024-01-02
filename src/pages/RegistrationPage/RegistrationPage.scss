@@ -17,19 +17,14 @@
   }
 }
 
-.input_hide {
-  &:hover {
-    cursor: pointer;
-    transform: scale(110%);
-  }
-}
-
 .register {
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   letter-spacing: 0.1px;
+
+  min-height: calc(100vh - 150px);
 
   &__form {
     margin: 20px auto;
@@ -40,39 +35,13 @@
     border-radius: 10px;
     background-color: #181818;
 
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
     &-title {
       font-size: 35px;
-      margin-bottom: 30px;
-    }
-  }
-
-  &__label {
-    color: white;
-  }
-
-  &__button {
-    height: 40px;
-    border-radius: 10px;
-    border: none;
-    background-color: #3f9c13;
-    transition-duration: 500ms;
-    color: white;
-    font-size: 18px;
-    font-weight: 600;
-
-    &:hover {
-      cursor: pointer;
-      transform: scale(102%);
-    }
-  }
-
-  &__message {
-    color: red;
-    display: flex;
-    align-items: center;
-    
-    &.hidden {
-      display: none;
+      margin-bottom: 10px;
     }
   }
 }

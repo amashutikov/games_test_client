@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
 import './RegistrationPage.scss';
-import Input from '@mui/joy/Input';
-import Stack from '@mui/joy/Stack';
-import InfoOutlined from '@mui/icons-material/InfoOutlined';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { EmailInput } from '../../components/EmailInput/EmailInput';
+import { PasswordInput } from '../../components/PasswordInput/PasswordInput';
+import { ConfirmationInput } from '../../components/ConfirmationInput/ConfirmationInput';
+import { RegistrationButton } from '../../components/RegistrationButton/RegistrationButton';
+import { validatePassword } from '../../helpers/validatePassword';
+import { authClient } from '../../utils/authClient';
+import { useNavigate } from 'react-router-dom';
 
 export const RegistrationPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmation, setConfirmation] = useState('');
+  const [popperVisible, setPopperVisible] = useState(false);
+  const [popperMessage, setPopperMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -18,28 +28,67 @@ export const RegistrationPage = () => {
     setShowConfirmation(!showConfirmation);
   };
 
-  const handleTouchToggle = (setter) => () => {
-    setter((prev) => !prev);
+  const handleInputChange = (event, setter) => {
+    const value = event.target.value;
+
+    setPopperVisible(false);
+    setter(value);
   };
 
-  const getEndDecorator = (show, toggleHandler) => {
-    return show ? (
-      <VisibilityOffIcon
-        className='input_hide'
-        onMouseDown={toggleHandler}
-        onMouseUp={toggleHandler}
-        onTouchStart={handleTouchToggle(toggleHandler)}
-        onMouseOut={() => toggleHandler(false)}
-      />
-    ) : (
-      <RemoveRedEyeIcon
-        className='input_hide'
-        onMouseDown={toggleHandler}
-        onMouseUp={toggleHandler}
-        onTouchStart={handleTouchToggle(toggleHandler)}
-        onMouseOut={() => toggleHandler(false)}
-      />
-    );
+  const handlePopperClose = () => {
+    setPopperVisible(false);
+    setPopperMessage('');
+  };
+
+  const handleRegisterClick = (e) => {
+    e.preventDefault();
+
+    if (!email || !password || !confirmation) {
+      setPopperVisible(true);
+      setPopperMessage('Fill all the fields please');
+      return;
+    }
+
+    if (password !== confirmation) {
+      setPopperVisible(true);
+      setPopperMessage(
+        'Password and confirmation do not match. Please double-check and try again.'
+      );
+      return;
+    }
+
+    const emailPattern = /^[\w.+-]+@([\w-]+\.){1,3}[\w-]{2,}$/;
+
+    if (!emailPattern.test(email)) {
+      setPopperVisible(true);
+      setPopperMessage('Email is not valid');
+      return;
+    }
+
+    const validPassword = validatePassword(password);
+
+    if (!validPassword.passwordValid) {
+      setPopperVisible(true);
+      setPopperMessage(validPassword.message.replace('string', 'password'));
+      return;
+    }
+
+    setIsLoading(true);
+
+    authClient
+      .register({ email, password })
+      .then(() => {
+        localStorage.setItem('successRedirect', 'true');
+        setIsLoading(false);
+
+        navigate('/successregister');
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setIsLoading(false);
+        setPopperVisible(true);
+        setPopperMessage(err.message);
+      });
   };
 
   return (
@@ -47,49 +96,27 @@ export const RegistrationPage = () => {
       <form className='register__form'>
         <h2 className='register__form-title'>Welcome!</h2>
 
-        <Stack spacing={2}>
-          <label className='register__label'>Please enter your email</label>
-          <Input placeholder='Email' required size='lg' />
-          <p className='register__message hidden'>
-            <InfoOutlined />
-            Oops! something is wrong.
-          </p>
+        <EmailInput onChange={(e) => handleInputChange(e, setEmail)} />
 
-          <label className='register__label'>Please enter your password</label>
-          <Input
-            placeholder='Password'
-            required
-            type={showPassword ? 'text' : 'password'}
-            size='lg'
-            endDecorator={getEndDecorator(showPassword, handleTogglePassword)}
-          />
-          <p className='register__message hidden'>
-            <InfoOutlined />
-            Oops! something is wrong.
-          </p>
+        <PasswordInput
+          onChange={(e) => handleInputChange(e, setPassword)}
+          showPassword={showPassword}
+          handleTogglePassword={handleTogglePassword}
+        />
 
-          <label className='register__label'>
-            Please confirm your password
-          </label>
-          <Input
-            placeholder='Confirm password'
-            required
-            type={showConfirmation ? 'text' : 'password'}
-            size='lg'
-            endDecorator={getEndDecorator(
-              showConfirmation,
-              handleToggleConfirmation
-            )}
-          />
-          <p className='register__message hidden'>
-            <InfoOutlined />
-            Oops! something is wrong.
-          </p>
+        <ConfirmationInput
+          onChange={(e) => handleInputChange(e, setConfirmation)}
+          showConfirmation={showConfirmation}
+          handleToggleConfirmation={handleToggleConfirmation}
+        />
 
-          <button type='submit' className='register__button'>
-            Register
-          </button>
-        </Stack>
+        <RegistrationButton
+          onClick={handleRegisterClick}
+          isLoading={isLoading}
+          popperVisible={popperVisible}
+          popperMessage={popperMessage}
+          handlePopperClose={handlePopperClose}
+        />
       </form>
     </div>
   );

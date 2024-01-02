@@ -1,0 +1,19 @@
+.page {
+  color: white;
+  min-height: calc(100vh - 150px);
+  margin: 0 20px;
+
+  &__title {
+    font-size: 42px;
+    font-weight: 900;
+    margin: 40px 0 10px;
+  }
+
+  &__text {
+    margin-bottom: 10px;
+  }
+
+  &__link {
+    color: #3f9c13;
+  }
+}
