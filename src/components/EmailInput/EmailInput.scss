@@ -1,0 +1,13 @@
+.register__label {
+  color: white;
+}
+
+.register__message {
+  color: red;
+  display: flex;
+  align-items: center;
+
+  &.hidden {
+    display: none;
+  }
+}

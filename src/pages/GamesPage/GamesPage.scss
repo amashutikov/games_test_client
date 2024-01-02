@@ -6,6 +6,8 @@
   flex-direction: column;
   margin-bottom: 60px;
 
+  min-height: calc(100vh - 150px);
+
   &_title {
     color: #eaeaea;
     font-weight: 900;
@@ -33,10 +35,9 @@
     background-color: #1c1c1c;
     cursor: pointer;
     transition: all 0.3s ease-in;
-  
+
     &:hover {
       background-color: #242424;
     }
   }
 }
-
