@@ -1,16 +1,13 @@
-import React, { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import './RegistrationPage.scss';
 import { EmailInput } from '../../components/EmailInput/EmailInput';
 import { PasswordInput } from '../../components/PasswordInput/PasswordInput';
 import { ConfirmationInput } from '../../components/ConfirmationInput/ConfirmationInput';
 import { RegistrationButton } from '../../components/RegistrationButton/RegistrationButton';
-import { validatePassword } from '../../helpers/validatePassword';
 import { authClient } from '../../utils/authClient';
 import { useNavigate } from 'react-router-dom';
 
 export const RegistrationPage = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
@@ -20,15 +17,7 @@ export const RegistrationPage = () => {
 
   const navigate = useNavigate();
 
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleToggleConfirmation = () => {
-    setShowConfirmation(!showConfirmation);
-  };
-
-  const handleInputChange = (event, setter) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>, setter: (value: string) => void) => {
     const value = event.target.value;
 
     setPopperVisible(false);
@@ -40,7 +29,7 @@ export const RegistrationPage = () => {
     setPopperMessage('');
   };
 
-  const handleRegisterClick = (e) => {
+  const handleRegisterClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     if (!email || !password || !confirmation) {
@@ -65,11 +54,11 @@ export const RegistrationPage = () => {
       return;
     }
 
-    const validPassword = validatePassword(password);
+    const validPassword = password;
 
-    if (!validPassword.passwordValid) {
+    if (!validPassword) {
       setPopperVisible(true);
-      setPopperMessage(validPassword.message.replace('string', 'password'));
+      setPopperMessage('yes');
       return;
     }
 
@@ -96,18 +85,14 @@ export const RegistrationPage = () => {
       <form className='register__form'>
         <h2 className='register__form-title'>Welcome!</h2>
 
-        <EmailInput onChange={(e) => handleInputChange(e, setEmail)} />
+        <EmailInput onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e, setEmail)} />
 
         <PasswordInput
-          onChange={(e) => handleInputChange(e, setPassword)}
-          showPassword={showPassword}
-          handleTogglePassword={handleTogglePassword}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e, setPassword)}
         />
 
         <ConfirmationInput
           onChange={(e) => handleInputChange(e, setConfirmation)}
-          showConfirmation={showConfirmation}
-          handleToggleConfirmation={handleToggleConfirmation}
         />
 
         <RegistrationButton

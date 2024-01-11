@@ -1,7 +1,11 @@
-import React from 'react';
+import { Game } from '../../types/Game';
 import './Card.scss';
 
-export const Card = ({ game }) => {
+type Props = {
+  game: Game;
+};
+
+export const Card: React.FC<Props> = ({ game }) => {
   return (
     <li className='card'>
       <img src={game.gameImage} className='card_image' />
