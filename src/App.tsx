@@ -1,4 +1,3 @@
-import React from 'react';
 import { Header } from './components/Header/Header';
 import { GamesPage } from './pages/GamesPage/GamesPage';
 import { HomePage } from './pages/HomePage/HomePage';
@@ -24,12 +23,12 @@ function App() {
       <main className='main'>
         <Routes>
           <Route path='/registration' element={<RegistrationPage />} />
-          
+
           <Route path='/login' element={<LoginPage />} />
 
           <Route path='/successregister' element={<RegisterSuccessPage />} />
 
-          <Route path='/activate/:token' element={<ActivatePage /> } />
+          <Route path='/activate/:token' element={<ActivatePage />} />
 
           <Route path='/games' element={<GamesPage />} />
 

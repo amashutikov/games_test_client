@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './GamesPage.scss';
 import { CardList } from '../../components/CardList/CardList';
 import { Oval } from 'react-loader-spinner';
@@ -7,6 +7,7 @@ import { getGames } from '../../api/games';
 import { useSelector, useDispatch } from 'react-redux';
 import { actions as gamesToShowActions } from '../../store/gamesToShow';
 import { Loader } from '../../components/Loader/Loader';
+import { RootState } from '../../types/RootState';
 
 export const GamesPage = () => {
   const [page, setPage] = useState(1);
@@ -16,11 +17,11 @@ export const GamesPage = () => {
 
   const dispatch = useDispatch();
 
-  const genre = useSelector((state) => state.selectedGenre);
+  const genre = useSelector((state: RootState) => state.selectedGenre);
 
   useEffect(() => {
     setPageLoading(true);
-    getGames(page, genre.value).then((res) => {
+    getGames(page, genre).then((res) => {
       dispatch(gamesToShowActions.add(res.games));
       setPageLoading(false);
       setHaveMoreGames(res.gamesListLength > res.games.length);

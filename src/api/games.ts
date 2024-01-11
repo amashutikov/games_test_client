@@ -1,6 +1,6 @@
 import { client } from '../utils/fetchClient';
 
-export const getGames = (page, genre) => {
+export const getGames = (page: number, genre: string) => {
   const data = {
     page,
     isFreshGamesFirst: 'true',
@@ -8,5 +8,5 @@ export const getGames = (page, genre) => {
     gamesToShow: 9,
   };
 
-  return client.post('', data);
+  return client.getData(data);
 };

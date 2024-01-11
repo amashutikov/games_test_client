@@ -1,19 +1,18 @@
-import React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import './CarouselComponent.scss';
 
 const images = [
-  'https://images.igdb.com/igdb/image/upload/t_original/ar5bh.jpg',
-  'https://images.igdb.com/igdb/image/upload/t_original/ar2d8r.jpg',
-  'https://images.igdb.com/igdb/image/upload/t_original/ar1bqr.jpg',
-  'https://images.igdb.com/igdb/image/upload/t_original/ar2cn0.jpg',
+  'https://images.igdb.com/igdb/image/upload/t_720p/ar5bh.jpg',
+  'https://images.igdb.com/igdb/image/upload/t_720p/ar2d8r.jpg',
+  'https://images.igdb.com/igdb/image/upload/t_720p/ar1bqr.jpg',
+  'https://images.igdb.com/igdb/image/upload/t_720p/ar2cn0.jpg',
 ];
 const delay = 10000;
 
 export const CarouselComponent = () => {
   const [index, setIndex] = useState(0);
-  const timeoutRef = useRef(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   function resetTimeout() {
     if (timeoutRef.current) {
@@ -63,27 +62,27 @@ export const CarouselComponent = () => {
   });
 
   return (
-    <div className="slideshow" {...handlers}>
-      <div className="slideshow__container">
-        <div className="slideshow__back" onClick={handleBackClick}></div>
+    <div className='slideshow' {...handlers}>
+      <div className='slideshow__container'>
+        <div className='slideshow__back' onClick={handleBackClick}></div>
 
         <div
-          className="slideshowSlider"
+          className='slideshowSlider'
           style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
         >
           {images.map((image) => (
-            <img src={image} alt="banner image" className="slide" key={image} />
+            <img src={image} alt='banner image' className='slide' key={image} />
           ))}
         </div>
 
-        <div className="slideshow__forward" onClick={handleForwardClick}></div>
+        <div className='slideshow__forward' onClick={handleForwardClick}></div>
       </div>
 
-      <div className="slideshowDots">
+      <div className='slideshowDots'>
         {images.map((image, idx) => (
           <div
             key={image}
-            className="slideshowDots__container"
+            className='slideshowDots__container'
             onClick={() => {
               setIndex(idx);
             }}

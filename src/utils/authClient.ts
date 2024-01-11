@@ -1,7 +1,9 @@
+import { FetchMethod } from '../types/FetchMethod';
+
 const BASE_URL = 'http://localhost:3006';
 
-async function request(url, method, data, credentials) {
-  const options = { method };
+async function request(url: string, method: FetchMethod, data: any, credentials: boolean) {
+  const options: any = { method };
 
   if (data) {
     options.body = JSON.stringify(data);
@@ -24,10 +26,10 @@ async function request(url, method, data, credentials) {
 }
 
 export const authClient = {
-  register: (data) => request('/registration', 'POST', data),
-  activate: (activationToken) =>
+  register: (data: any) => request('/registration', 'POST', data, false),
+  activate: (activationToken: any) =>
     request(`/activation/${activationToken}`, 'GET', false, true),
-  login: (data) => request('/login', 'POST', data),
+  login: (data: any) => request('/login', 'POST', data, false),
   refresh: () => request('/refresh', 'GET', {}, true),
   logout: () => request('/logout', 'POST', {}, true),
 };

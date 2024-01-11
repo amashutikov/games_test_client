@@ -1,10 +1,17 @@
-import React from 'react';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 import './RegistrationButton.scss';
 
-export const RegistrationButton = ({
+type Props = {
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  isLoading: boolean;
+  popperVisible: boolean;
+  popperMessage: string;
+  handlePopperClose: () => void;
+};
+
+export const RegistrationButton: React.FC<Props> = ({
   onClick,
   isLoading,
   popperVisible,
