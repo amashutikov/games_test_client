@@ -1,7 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FetchMethod } from '../types/FetchMethod';
 
 const DATA_URL = 'https://api.igdb.com/v4/games';
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
 
 function wait(delay: number) {
   return new Promise((resolve) => {
@@ -9,24 +10,31 @@ function wait(delay: number) {
   });
 }
 
-async function request(method: FetchMethod, data: any) {
+async function request(method: FetchMethod, data: string) {
   const options: any = { method };
 
   if (data) {
-    options.body = JSON.stringify(data);
+    options.body = data;
+    options.mode = 'no-cors';
     options.headers = {
+      'Client-ID': CLIENT_ID,
       'Content-Type': 'text/plain',
+      'Authorization': `Bearer ${ACCESS_TOKEN}`,
     };
+
+    console.log(options);
   }
 
   await wait(300);
   const response = await fetch(DATA_URL, options);
   if (!response.ok) {
+    const errorText = await response.text();
+    console.error('Error:', errorText);
     throw new Error();
   }
   return await response.json();
 }
 
 export const client = {
-  getData: (data: any) => request('POST', data),
+  get: (data: string) => request('POST', data),
 };

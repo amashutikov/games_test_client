@@ -10,7 +10,7 @@ export const CardList = () => {
   return (
     <ul className='list'>
       {gamesToShow.map((game) => (
-        <Card game={game} key={game._id} />
+        <Card game={game} key={game.id} />
       ))}
     </ul>
   );
