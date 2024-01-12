@@ -21,7 +21,8 @@ export const GamesPage = () => {
   useEffect(() => {
     setPageLoading(true);
     getGames(page, genre).then((res) => {
-      dispatch(gamesToShowActions.add(res.games));
+      console.log(res);
+      dispatch(gamesToShowActions.add(res));
       setPageLoading(false);
       setLoadingMoreGames(false);
     });
@@ -39,7 +40,7 @@ export const GamesPage = () => {
 
         <GenreSelect />
 
-        <CardList />
+        {pageLoading ? <Loader /> : <CardList />}
 
         <button className='games_button' onClick={handleDownloadMoreGames}>
           {loadingMoreGames ? (
@@ -58,7 +59,6 @@ export const GamesPage = () => {
           )}
         </button>
       </div>
-      {pageLoading && <Loader />}
     </>
   );
 };

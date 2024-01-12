@@ -15,18 +15,22 @@ async function request(method: FetchMethod, data: string) {
 
   if (data) {
     options.body = data;
-    options.mode = 'no-cors';
+    // Remove 'no-cors' mode
     options.headers = {
       'Client-ID': CLIENT_ID,
       'Content-Type': 'text/plain',
       'Authorization': `Bearer ${ACCESS_TOKEN}`,
     };
-
-    console.log(options);
   }
 
   await wait(300);
-  const response = await fetch(DATA_URL, options);
+
+  // Use a CORS proxy if needed
+  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  const urlWithProxy = `${proxyUrl}${DATA_URL}`;
+
+  const response = await fetch(urlWithProxy, options);
+
   if (!response.ok) {
     const errorText = await response.text();
     console.error('Error:', errorText);
