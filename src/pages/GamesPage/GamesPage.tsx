@@ -35,14 +35,14 @@ export const GamesPage = () => {
 
   return (
     <>
-      <div className='games'>
-        <h1 className='games_title'>Всі ігри</h1>
+      <div className='games_page'>
+        <h1 className='games_page__title'>All games</h1>
 
         <GenreSelect />
 
         {pageLoading ? <Loader /> : <CardList />}
 
-        <button className='games_button' onClick={handleDownloadMoreGames}>
+        <button className='games_page__button' onClick={handleDownloadMoreGames}>
           {loadingMoreGames ? (
             <Oval
               height={30}

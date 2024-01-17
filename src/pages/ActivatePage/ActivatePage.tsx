@@ -18,19 +18,19 @@ export const ActivatePage = () => {
   }, [token]);
 
   return (
-    <div className='page'>
-      <h1 className='page__title'>Account Activated!</h1>
-      <p className='page__text'>
+    <div className='activate_page'>
+      <h1 className='activate_page__title'>Account Activated!</h1>
+      <p className='activate_page__text'>
         Congratulations! Your account has been successfully activated.
       </p>
-      <p className='page__text'>
+      <p className='activate_page__text'>
         You can now{' '}
-        <Link to='/' className='page__link'>
-          go back to the home page
+        <Link to='/' className='activate_page__link'>
+          go back to the home activate_page
         </Link>{' '}
         and log in using your credentials. <br /> If you have any questions or
         need further assistance,{' '}
-        <a href='mailto:support@example.com' className='page__link'>
+        <a href='mailto:support@example.com' className='activate_page__link'>
           contact support
         </a>
         .
