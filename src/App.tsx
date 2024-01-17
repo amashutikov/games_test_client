@@ -9,6 +9,7 @@ import { Routes, Route } from 'react-router-dom';
 import { RegisterSuccessPage } from './pages/RegisterSuccessPage/RegisterSuccessPage';
 import { ActivatePage } from './pages/ActivatePage/ActivatePage';
 import { LoginPage } from './pages/LoginPage/LoginPage';
+import { Development } from './components/Development/Development';
 
 // import { AuthContext } from './components/AuthContext';
 // import { RequireAuth } from './components/RequireAuth';
@@ -31,6 +32,8 @@ function App() {
           <Route path='/activate/:token' element={<ActivatePage />} />
 
           <Route path='/games' element={<GamesPage />} />
+
+          <Route path='/development' element={<Development />} />
 
           <Route path='/' element={<HomePage />} />
         </Routes>
