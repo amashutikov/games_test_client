@@ -4,8 +4,9 @@ import { Typography, Button, Box } from '@mui/material';
 import { authClient } from '../../utils/authClient';
 import { Link, useNavigate } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
+import { verify } from '../../utils/verify';
 
 const initialValues = {
   email: '',
@@ -20,6 +21,19 @@ export const LoginPage = () => {
   const handleVisibilityToggle = (
     setter: React.Dispatch<React.SetStateAction<boolean>>
   ) => setter((prev) => !prev);
+
+  useEffect(() => {
+    const checkVerification = async () => {
+      const result = await verify();
+      if (result) {
+        navigate('/games');
+      } else {
+        return;
+      }
+    };
+
+    checkVerification();
+  }, []);
 
   const navigate = useNavigate();
 

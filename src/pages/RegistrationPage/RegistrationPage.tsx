@@ -1,5 +1,5 @@
 /* eslint-disable no-empty-pattern */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -8,6 +8,7 @@ import './RegistrationPage.scss';
 import { authClient } from '../../utils/authClient';
 import { Link, useNavigate } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import { verify } from '../../utils/verify';
 
 const initialValues = {
   email: '',
@@ -42,6 +43,20 @@ export const RegistrationPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmationVisible, setConfirmationVisible] = useState(false);
+
+    useEffect(() => {
+    const checkVerification = async () => {
+      const result = await verify();
+      if (result) {
+        navigate('/games');
+      } else {
+        return;
+      }
+    };
+
+    checkVerification();
+  }, []);
+
 
   const handleVisibilityToggle = (
     setter: React.Dispatch<React.SetStateAction<boolean>>

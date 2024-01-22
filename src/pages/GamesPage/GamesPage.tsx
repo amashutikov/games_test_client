@@ -8,20 +8,39 @@ import { useSelector, useDispatch } from 'react-redux';
 import { actions as gamesToShowActions } from '../../store/gamesToShow';
 import { Loader } from '../../components/Loader/Loader';
 import { RootState } from '../../types/RootState';
+import { verify } from '../../utils/verify';
+import { useNavigate } from 'react-router-dom';
 
 export const GamesPage = () => {
   const [page, setPage] = useState(0);
   const [loadingMoreGames, setLoadingMoreGames] = useState(false);
   const [pageLoading, setPageLoading] = useState(true);
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkVerification = async () => {
+      const result = await verify();
+      if (!result) {
+        navigate('/registration');
+      } else {
+        return;
+      }
+    };
+
+    checkVerification();
+  }, []);
+
   const dispatch = useDispatch();
 
   const genre = useSelector((state: RootState) => state.selectedGenre);
 
   useEffect(() => {
-    setPageLoading(true);
+    if (page === 0) {
+      setPageLoading(true);
+    }
+
     getGames(page, genre).then((res) => {
-      console.log(res);
       dispatch(gamesToShowActions.add(res));
       setPageLoading(false);
       setLoadingMoreGames(false);
@@ -34,31 +53,29 @@ export const GamesPage = () => {
   };
 
   return (
-    <>
-      <div className='games_page'>
-        <h1 className='games_page__title'>All games</h1>
+    <div className='games_page'>
+      <h1 className='games_page__title'>All games</h1>
 
-        <GenreSelect />
+      <GenreSelect />
 
-        {pageLoading ? <Loader /> : <CardList />}
+      {pageLoading ? <Loader /> : <CardList />}
 
-        <button className='games_page__button' onClick={handleDownloadMoreGames}>
-          {loadingMoreGames ? (
-            <Oval
-              height={30}
-              width={30}
-              color='#4fa94d'
-              visible={true}
-              ariaLabel='oval-loading'
-              secondaryColor='#4fa94d'
-              strokeWidth={2}
-              strokeWidthSecondary={2}
-            />
-          ) : (
-            'Load more'
-          )}
-        </button>
-      </div>
-    </>
+      <button className='games_page__button' onClick={handleDownloadMoreGames}>
+        {loadingMoreGames ? (
+          <Oval
+            height={30}
+            width={30}
+            color='#4fa94d'
+            visible={true}
+            ariaLabel='oval-loading'
+            secondaryColor='#4fa94d'
+            strokeWidth={2}
+            strokeWidthSecondary={2}
+          />
+        ) : (
+          'Load more'
+        )}
+      </button>
+    </div>
   );
 };

@@ -2,7 +2,20 @@ import { FetchMethod } from '../types/FetchMethod';
 
 const BASE_URL = 'http://localhost:3006';
 
-async function request(url: string, method: FetchMethod, data: any, credentials: boolean) {
+export interface ErrorResponse {
+  message: string;
+}
+
+export interface VerifyResponse {
+  success: boolean;
+}
+
+async function request<T>(
+  url: string,
+  method: FetchMethod,
+  data: any,
+  credentials: boolean
+): Promise<T> {
   const options: any = { method };
 
   if (data) {
@@ -17,19 +30,34 @@ async function request(url: string, method: FetchMethod, data: any, credentials:
   }
 
   const response = await fetch(BASE_URL + url, options);
+
+  let responseBody: T;
+
+  try {
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
+      responseBody = await response.json();
+    } else {
+      throw new Error('Response is not in JSON format');
+    }
+  } catch (error) {
+    throw new Error('Error parsing server response');
+  }
+
   if (!response.ok) {
-    const error = await response.json();
+    const error: ErrorResponse = responseBody as ErrorResponse;
 
     throw new Error(error.message);
   }
-  return await response.json();
+
+  return responseBody;
 }
 
 export const authClient = {
   register: (data: any) => request('/registration', 'POST', data, false),
   activate: (activationToken: any) =>
     request(`/activation/${activationToken}`, 'GET', false, true),
-  login: (data: any) => request('/login', 'POST', data, false),
-  refresh: () => request('/refresh', 'GET', {}, true),
+  login: (data: any) => request('/login', 'POST', data, true),
   logout: () => request('/logout', 'POST', {}, true),
+  verify: () => request<VerifyResponse>('/verify', 'GET', false, true),
 };
