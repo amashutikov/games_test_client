@@ -7,6 +7,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { verify } from '../../utils/verify';
+import { Loader } from '../../components/Loader/Loader';
 
 const initialValues = {
   email: '',
@@ -17,6 +18,7 @@ export const LoginPage = () => {
   const [isSubmiting, setIsSubmiting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
 
   const handleVisibilityToggle = (
     setter: React.Dispatch<React.SetStateAction<boolean>>
@@ -28,6 +30,7 @@ export const LoginPage = () => {
       if (result) {
         navigate('/games');
       } else {
+        setPageLoading(false);
         return;
       }
     };
@@ -63,6 +66,10 @@ export const LoginPage = () => {
     initialValues,
     onSubmit,
   });
+
+  if (pageLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className='login_page'>

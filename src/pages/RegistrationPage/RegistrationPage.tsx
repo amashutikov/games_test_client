@@ -9,6 +9,7 @@ import { authClient } from '../../utils/authClient';
 import { Link, useNavigate } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { verify } from '../../utils/verify';
+import { Loader } from '../../components/Loader/Loader';
 
 const initialValues = {
   email: '',
@@ -43,6 +44,7 @@ export const RegistrationPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmationVisible, setConfirmationVisible] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
 
     useEffect(() => {
     const checkVerification = async () => {
@@ -50,6 +52,7 @@ export const RegistrationPage = () => {
       if (result) {
         navigate('/games');
       } else {
+        setPageLoading(false);
         return;
       }
     };
@@ -96,6 +99,11 @@ export const RegistrationPage = () => {
     validateOnBlur: false,
     validateOnChange: false,
   });
+
+  if (pageLoading) {
+    return <Loader />
+  }
+
 
   return (
     <div className='registration_page'>

@@ -52,13 +52,17 @@ export const GamesPage = () => {
     setLoadingMoreGames(true);
   };
 
+  if (pageLoading) {
+    return <Loader />;
+  }
+
   return (
     <div className='games_page'>
       <h1 className='games_page__title'>All games</h1>
 
       <GenreSelect />
 
-      {pageLoading ? <Loader /> : <CardList />}
+      <CardList />
 
       <button className='games_page__button' onClick={handleDownloadMoreGames}>
         {loadingMoreGames ? (
