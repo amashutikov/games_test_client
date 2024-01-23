@@ -15,3 +15,10 @@ export const getGames = (page: number, genre: string) => {
 
   return client.get(data);
 };
+
+export const getGameImages = (gameId: string) => {
+  const data = `where id = ${gameId};
+  fields artworks.*, name, summary, storyline, screenshots.*;`;
+
+  return client.get(data);
+};
