@@ -1,4 +1,4 @@
-import React from 'react';
+
 import './HomePage.scss';
 import { CarouselComponent } from '../../components/Carousel/CarouselComponent';
 

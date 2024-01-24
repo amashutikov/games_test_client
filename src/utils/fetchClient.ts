@@ -26,7 +26,7 @@ async function request(method: FetchMethod, data: string) {
   await wait(300);
 
   // Use a CORS proxy if needed
-  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  const proxyUrl = 'https://cors-anywhere-34sl.onrender.com/';
   const urlWithProxy = `${proxyUrl}${DATA_URL}`;
 
   const response = await fetch(urlWithProxy, options);

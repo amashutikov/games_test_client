@@ -1,5 +1,5 @@
 /* eslint-disable no-empty-pattern */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -8,6 +8,8 @@ import './RegistrationPage.scss';
 import { authClient } from '../../utils/authClient';
 import { Link, useNavigate } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import { verify } from '../../utils/verify';
+import { Loader } from '../../components/Loader/Loader';
 
 const initialValues = {
   email: '',
@@ -42,6 +44,22 @@ export const RegistrationPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmationVisible, setConfirmationVisible] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
+
+    useEffect(() => {
+    const checkVerification = async () => {
+      const result = await verify();
+      if (result) {
+        navigate('/games');
+      } else {
+        setPageLoading(false);
+        return;
+      }
+    };
+
+    checkVerification();
+  }, []);
+
 
   const handleVisibilityToggle = (
     setter: React.Dispatch<React.SetStateAction<boolean>>
@@ -81,6 +99,11 @@ export const RegistrationPage = () => {
     validateOnBlur: false,
     validateOnChange: false,
   });
+
+  if (pageLoading) {
+    return <Loader />
+  }
+
 
   return (
     <div className='registration_page'>

@@ -3,16 +3,20 @@ import './Card.scss';
 
 type Props = {
   game: Game;
+  onClick: (gameId: number) => void;
 };
 
 const BASE_IMAGE_SRC = 'https://images.igdb.com/igdb/image/upload/t_720p/';
 
-export const Card: React.FC<Props> = ({ game }) => {
-
+export const Card: React.FC<Props> = ({ game, onClick }) => {
   return (
-    <li className='card'>
+    <li
+      className='card'
+      onClick={() => onClick(game.id)}
+      onTouchEnd={() => onClick(game.id)}
+    >
       <img
-        src={`${BASE_IMAGE_SRC + game.artworks[0].image_id}.jpg`}
+        src={`${BASE_IMAGE_SRC + game.cover.image_id}.jpg`}
         className='card_image'
       />
       <div className='card_about'>

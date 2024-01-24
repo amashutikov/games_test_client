@@ -1,0 +1,27 @@
+.close_button {
+  border-radius: 50%;
+  border: 1px solid #3f9c13;
+  width: max-content;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition-duration: 200ms;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &__icon {
+    padding: 5px;
+    transition-duration: 200ms;
+    color: #3f9c13;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}

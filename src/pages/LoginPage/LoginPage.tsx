@@ -4,8 +4,10 @@ import { Typography, Button, Box } from '@mui/material';
 import { authClient } from '../../utils/authClient';
 import { Link, useNavigate } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
+import { verify } from '../../utils/verify';
+import { Loader } from '../../components/Loader/Loader';
 
 const initialValues = {
   email: '',
@@ -16,10 +18,25 @@ export const LoginPage = () => {
   const [isSubmiting, setIsSubmiting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
 
   const handleVisibilityToggle = (
     setter: React.Dispatch<React.SetStateAction<boolean>>
   ) => setter((prev) => !prev);
+
+  useEffect(() => {
+    const checkVerification = async () => {
+      const result = await verify();
+      if (result) {
+        navigate('/games');
+      } else {
+        setPageLoading(false);
+        return;
+      }
+    };
+
+    checkVerification();
+  }, []);
 
   const navigate = useNavigate();
 
@@ -49,6 +66,10 @@ export const LoginPage = () => {
     initialValues,
     onSubmit,
   });
+
+  if (pageLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className='login_page'>

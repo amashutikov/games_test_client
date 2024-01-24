@@ -1,10 +1,17 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { Game } from '../types/Game';
+
+const initialState: Game[] = [];
 
 export const { reducer, actions } = createSlice({
   name: 'gamesToShow',
-  initialState: [],
+  initialState,
   reducers: {
-    add: (gamesToShow, action) => action.payload,
-    clear: () => [],
+    add: (state, action: PayloadAction<Game | Game[]>) => {
+      state.push(...(Array.isArray(action.payload) ? action.payload : [action.payload]));
+    },
+    clear: (state) => {
+      state.length = 0; 
+    },
   },
 });
