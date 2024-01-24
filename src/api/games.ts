@@ -6,7 +6,7 @@ export const getGames = (page: number, genre: string) => {
   }
 
   const data = `offset ${page * 12}; 
-    fields name, summary, id, slug, artworks.*;
+    fields name, summary, id, slug, artworks.*, cover.*;
     limit 12;
     where summary != null 
     & artworks != null 
@@ -16,9 +16,22 @@ export const getGames = (page: number, genre: string) => {
   return client.get(data);
 };
 
-export const getGameImages = (gameId: string) => {
+export const getGameDetails = (gameId: string) => {
   const data = `where id = ${gameId};
-  fields artworks.*, name, summary, storyline, screenshots.*;`;
+  fields 
+  artworks.url,
+  artworks.id,
+  artworks.image_id,
+  name, 
+  summary,
+  storyline,
+  screenshots.url, 
+  screenshots.id, 
+  screenshots.image_id, 
+  similar_games.id, 
+  similar_games.name,
+  similar_games.cover.id, 
+  similar_games.cover.image_id;`;
 
   return client.get(data);
 };

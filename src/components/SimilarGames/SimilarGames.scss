@@ -1,0 +1,32 @@
+.similar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: baseline;
+
+  margin: 0 20px 20px 20px;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    box-sizing: border-box;
+
+    transition-duration: 300ms;
+
+    &:hover {
+      cursor: pointer;
+      border: 1px solid #3f9c13;
+    }
+  }
+
+  &__image {
+    object-fit: cover;
+    height: 200px;
+    width: 198px;
+    border-radius: 10px;
+  }
+}

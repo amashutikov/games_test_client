@@ -9,23 +9,27 @@ $ig-shadow: 0 2px 2px lighten($ig-black, 10%);
 
 .modal {
   width: 100%;
-  min-height: 100%;
-  background-color: rgba($color: gray, $alpha: 0.05);
+  min-height: 100vh;
+  background-color: rgba($color: black, $alpha: 0.5);
   top: 0;
   left: 0;
   position: fixed;
-  
+
   display: flex;
+  max-height: 100%;
   overflow-y: auto;
+  z-index: 1000;
 
   justify-content: center;
 
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 
   &__container {
     min-width: 400px;
     max-width: 1100px;
+    height: max-content;
+    z-index: 1001;
 
     display: flex;
     flex-direction: column;
@@ -34,8 +38,6 @@ $ig-shadow: 0 2px 2px lighten($ig-black, 10%);
 
     margin: 40px;
 
-    background-color: gray;
-
     border-radius: 10px;
     border: 0.5px solid #3f9c13;
   }
@@ -43,11 +45,7 @@ $ig-shadow: 0 2px 2px lighten($ig-black, 10%);
   &__gallery {
     max-width: 700px;
 
-    margin: 20px;
-  }
-
-  &__about {
-    margin: 20px;
+    margin: 10px 20px 20px 20px;
   }
 
   &__close {
@@ -60,12 +58,26 @@ $ig-shadow: 0 2px 2px lighten($ig-black, 10%);
 
   &__image {
     width: 50%;
+    max-height: 400px;
     margin: 20px 0 0 20px;
     border-radius: 10px;
+    object-fit: cover;
+    object-position: center top;
+    flex: 6;
+
+    @media (max-width: 900px) {
+      width: 80%;
+    }
   }
 
   &__showcase {
     display: flex;
+    min-height: 400px;
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 }
 

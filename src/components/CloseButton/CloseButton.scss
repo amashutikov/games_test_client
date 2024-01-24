@@ -7,8 +7,6 @@
   align-items: center;
   justify-content: center;
 
-  background-color: gray;
-
   cursor: pointer;
 
   transition-duration: 200ms;
@@ -20,6 +18,7 @@
   &__icon {
     padding: 5px;
     transition-duration: 200ms;
+    color: #3f9c13;
 
     &:hover {
       transform: scale(1.05);
