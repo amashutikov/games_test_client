@@ -11,9 +11,12 @@ export const getGames = (page: number, genre: string) => {
     where summary != null 
     & artworks != null 
     & themes != (42) 
-    & rating > 90;`;
+    & rating > 90
+    ${genre !== 'All genres' ? '& genres.name = ' + `"${genre}"` : ''};`;
 
-  return client.get(data);
+  console.log(data);
+
+  return client.get(data, '/games');
 };
 
 export const getGameDetails = (gameId: string) => {
@@ -33,5 +36,5 @@ export const getGameDetails = (gameId: string) => {
   similar_games.cover.id, 
   similar_games.cover.image_id;`;
 
-  return client.get(data);
+  return client.get(data, '/games');
 };

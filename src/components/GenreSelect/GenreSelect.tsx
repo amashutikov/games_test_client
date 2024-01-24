@@ -1,21 +1,40 @@
-// import { useSelector, useDispatch } from 'react-redux';
-// import { actions as selectedGenreActions } from '../../store/selectedGenre';
+import { useEffect, useState } from 'react';
+import { getGenres } from '../../api/genres';
 import './GenreSelect.scss';
-// import { SelectedGenre } from '../../types/RootState';
+import { Genre } from '../../types/Genre';
 
-// const options = Object.entries(SelectedGenre).map(([value, label]) => ({
-//   value: value as SelectedGenre,
-//   label: label as SelectedGenre,
-// }));
+type Props = {
+  onGenreChange: (newGenre: string) => void;
+};
 
-export const GenreSelect = () => {
-  // const genre = useSelector((state: RootState) => state.selectedGenre);
+export const GenreSelect: React.FC<Props> = ({ onGenreChange }) => {
+  const [genres, setGenres] = useState<Genre[] | undefined>(undefined);
 
-  // const dispatch = useDispatch();
+  useEffect(() => {
+    getGenres().then((res) => {
+      setGenres(res);
+    });
+  }, []);
 
-  return (
-    <form className='game-genre'>
-      <label>Choose game genre:</label>
-    </form>
-  );
+  if (genres) {
+    return (
+      <form className='genres'>
+        <label>Choose game genre:</label>
+        <select
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+            onGenreChange(e.target.value)
+          }
+          defaultValue='All genres'
+          className='genres__select'
+        >
+          <option>All genres</option>
+          {genres.map((genre) => (
+            <option key={genre.id}>{genre.name}</option>
+          ))}
+        </select>
+      </form>
+    );
+  }
+
+  return null;
 };

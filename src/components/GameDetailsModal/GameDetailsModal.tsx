@@ -66,12 +66,21 @@ export const GameDetailsModal = () => {
             {game.name}
           </Typography>
           <div className='modal__showcase'>
-            <img
-              style={{ flex: 6 }}
-              className='modal__image'
-              alt='banner'
-              src={`https://images.igdb.com/igdb/image/upload/t_1080p/${game.artworks[0].image_id}.jpg`}
-            />
+            {game.artworks ? (
+              <img
+                style={{ flex: 6 }}
+                className='modal__image'
+                alt='banner'
+                src={`https://images.igdb.com/igdb/image/upload/t_1080p/${game.artworks[0].image_id}.jpg`}
+              />
+            ) : (
+              <img
+                style={{ flex: 6 }}
+                className='modal__image'
+                alt='banner'
+                src={`https://images.igdb.com/igdb/image/upload/t_1080p/${game.screenshots[0].image_id}.jpg`}
+              />
+            )}
 
             <Typography
               sx={{ fontFamily: 'inherit', color: 'white', flex: 4, m: '20px' }}

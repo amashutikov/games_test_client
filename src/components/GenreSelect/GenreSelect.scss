@@ -1,8 +1,35 @@
-.game-genre {
+.genres {
   margin-bottom: 36px;
 
   font-weight: 800;
   font-size: 22px;
   line-height: 36px;
   color: #eaeaea;
+
+  display: flex;
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
+
+  &__select {
+    font-weight: 800;
+    font-size: 22px;
+    color: #eaeaea;
+
+    background-color: transparent;
+
+    outline: none;
+
+    margin-left: 20px;
+
+    border-radius: 10px;
+    border-color: #3f9c13;
+
+    padding: 5px;
+
+    @media (max-width: 800px) {
+      margin-left: 0;
+    }
+  }
 }

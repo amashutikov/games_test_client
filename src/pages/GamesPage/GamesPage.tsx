@@ -4,10 +4,9 @@ import { CardList } from '../../components/CardList/CardList';
 import { Oval } from 'react-loader-spinner';
 import { GenreSelect } from '../../components/GenreSelect/GenreSelect';
 import { getGames } from '../../api/games';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { actions as gamesToShowActions } from '../../store/gamesToShow';
 import { Loader } from '../../components/Loader/Loader';
-import { RootState } from '../../types/RootState';
 import { verify } from '../../utils/verify';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,6 +14,7 @@ export const GamesPage = () => {
   const [page, setPage] = useState(0);
   const [loadingMoreGames, setLoadingMoreGames] = useState(false);
   const [pageLoading, setPageLoading] = useState(true);
+  const [genre, setGenre] = useState('All genres');
 
   const navigate = useNavigate();
 
@@ -33,8 +33,6 @@ export const GamesPage = () => {
 
   const dispatch = useDispatch();
 
-  const genre = useSelector((state: RootState) => state.selectedGenre);
-
   useEffect(() => {
     if (page === 0) {
       setPageLoading(true);
@@ -45,7 +43,18 @@ export const GamesPage = () => {
       setPageLoading(false);
       setLoadingMoreGames(false);
     });
-  }, [page, genre]);
+  }, [page]);
+
+  useEffect(() => {
+    console.log('here');
+
+    getGames(page, genre).then((res) => {
+      setPageLoading(true);
+      dispatch(gamesToShowActions.replace(res));
+      setPageLoading(false);
+      setLoadingMoreGames(false);
+    });
+  }, [genre]);
 
   const handleDownloadMoreGames = () => {
     setPage((prev) => prev + 1);
@@ -56,11 +65,15 @@ export const GamesPage = () => {
     return <Loader />;
   }
 
+  const handleGenreChange = (newGenre: string) => {
+    setGenre(newGenre);
+  };
+
   return (
     <div className='games_page'>
       <h1 className='games_page__title'>All games</h1>
 
-      <GenreSelect />
+      <GenreSelect onGenreChange={handleGenreChange} />
 
       <CardList />
 
