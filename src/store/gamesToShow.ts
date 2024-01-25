@@ -13,7 +13,7 @@ export const { reducer, actions } = createSlice({
       );
     },
     replace: (state, action: PayloadAction<Game | Game[]>) => {
-      state = Array.isArray(action.payload) ? action.payload : [action.payload];
+      return Array.isArray(action.payload) ? action.payload : [action.payload];
     },
     clear: (state) => {
       state.length = 0;

@@ -1,22 +1,30 @@
 import { client } from '../utils/fetchClient';
 
 export const getGames = (page: number, genre: string) => {
-  if (genre) {
-    console.log(genre);
-  }
-
-  const data = `offset ${page * 12}; 
+  const data = `offset ${page * 24}; 
     fields name, summary, id, slug, artworks.*, cover.*;
-    limit 12;
+    limit 24;
+    sort rating desc;
+    where summary != null 
+    & category = 0
+    & artworks != null 
+    & total_rating >= 80
+    & themes != (42) 
+    & cover != null
+    ${genre !== 'All genres' ? '& genres.name = ' + `"${genre}"` : ''};`;
+
+  return client.get(data, '/games');
+};
+
+export const getAmountOfGames = (genre: string) => {
+  const data = `
     where summary != null 
     & artworks != null 
     & themes != (42) 
-    & rating > 90
+    & cover != null
     ${genre !== 'All genres' ? '& genres.name = ' + `"${genre}"` : ''};`;
 
-  console.log(data);
-
-  return client.get(data, '/games');
+  return client.get(data, '/games/count');
 };
 
 export const getGameDetails = (gameId: string) => {

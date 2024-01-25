@@ -10,10 +10,12 @@ import { Details } from '../../types/Details';
 import { Loader } from '../Loader/Loader';
 import { CloseButton } from '../CloseButton/CloseButton';
 import { SimilarGames } from '../SimilarGames/SimilarGames';
+import { Storyline } from '../Storyline/Storyline';
 
 export const GameDetailsModal = () => {
   const [images, setImages] = useState<PreparedImages[]>([]);
   const [game, setGame] = useState<Details | undefined>(undefined);
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -90,32 +92,7 @@ export const GameDetailsModal = () => {
             </Typography>
           </div>
 
-          {game.storyline && (
-            <>
-              <Typography
-                sx={{
-                  fontFamily: 'inherit',
-                  color: 'white',
-                  alignSelf: 'flex-start',
-                  margin: '20px 0 10px 20px',
-                }}
-                variant='h4'
-              >
-                Storyline:
-              </Typography>
-
-              <Typography
-                sx={{
-                  fontFamily: 'inherit',
-                  color: 'white',
-                  marginLeft: '20px',
-                }}
-                variant='body1'
-              >
-                {game.storyline}
-              </Typography>
-            </>
-          )}
+          {game.storyline && <Storyline storyline={game.storyline} />}
 
           <Typography
             sx={{

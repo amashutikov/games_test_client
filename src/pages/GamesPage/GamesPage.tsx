@@ -8,13 +8,18 @@ import { useDispatch } from 'react-redux';
 import { actions as gamesToShowActions } from '../../store/gamesToShow';
 import { Loader } from '../../components/Loader/Loader';
 import { verify } from '../../utils/verify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Pagination } from '../../components/Pagination/Pagination';
 
 export const GamesPage = () => {
+  const [searchParams] = useSearchParams();
+
   const [page, setPage] = useState(0);
   const [loadingMoreGames, setLoadingMoreGames] = useState(false);
   const [pageLoading, setPageLoading] = useState(true);
-  const [genre, setGenre] = useState('All genres');
+  const [genre, setGenre] = useState(
+    searchParams.get('gameGenre') || 'All genres'
+  );
 
   const navigate = useNavigate();
 
@@ -34,40 +39,27 @@ export const GamesPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (page === 0) {
-      setPageLoading(true);
-    }
+    setPageLoading(true);
 
     getGames(page, genre).then((res) => {
-      dispatch(gamesToShowActions.add(res));
-      setPageLoading(false);
-      setLoadingMoreGames(false);
-    });
-  }, [page]);
-
-  useEffect(() => {
-    console.log('here');
-
-    getGames(page, genre).then((res) => {
-      setPageLoading(true);
       dispatch(gamesToShowActions.replace(res));
       setPageLoading(false);
       setLoadingMoreGames(false);
     });
-  }, [genre]);
+  }, [page, genre]);
 
   const handleDownloadMoreGames = () => {
     setPage((prev) => prev + 1);
     setLoadingMoreGames(true);
   };
 
-  if (pageLoading) {
-    return <Loader />;
-  }
-
   const handleGenreChange = (newGenre: string) => {
     setGenre(newGenre);
   };
+
+  if (pageLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className='games_page'>
@@ -93,6 +85,7 @@ export const GamesPage = () => {
           'Load more'
         )}
       </button>
+      <Pagination />
     </div>
   );
 };
