@@ -12,6 +12,12 @@
       color: #3f9c13;
       transform: scale(1.1);
     }
+
+    &.disabled {
+      color: gray;
+      cursor: default;
+      transform: none;
+    }
   }
 
   &__container {
@@ -38,6 +44,11 @@
       &.active {
         background-color: white;
         color: black;
+        cursor: default;
+      }
+
+      &.dots {
+        background-color: transparent;
         cursor: default;
       }
     }

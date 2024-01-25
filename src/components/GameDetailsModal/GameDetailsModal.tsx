@@ -4,7 +4,7 @@ import ImageGallery from 'react-image-gallery';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getGameDetails } from '../../api/games';
-import { prepareImages } from '../../utils/prepareImages';
+import { prepareImages } from '../../helpers/prepareImages';
 import { PreparedImages } from '../../types/PreparedImages';
 import { Details } from '../../types/Details';
 import { Loader } from '../Loader/Loader';
