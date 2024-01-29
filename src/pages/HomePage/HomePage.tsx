@@ -1,13 +1,40 @@
-
 import './HomePage.scss';
-import { CarouselComponent } from '../../components/Carousel/CarouselComponent';
-
+import ImageGallery from 'react-image-gallery';
+import { getTitleImages } from '../../helpers/getTitleImages';
+import { PreparedImages } from '../../types/PreparedImages';
+import { CardCarousel } from '../../components/CardCarousel/CardCarousel';
 
 export const HomePage = () => {
+  const images: PreparedImages[] = getTitleImages([
+    'ar2nxz',
+    'ar1bqr',
+    'ar5bh',
+    'ar2d8r',
+  ]);
+
   return (
     <div className='home_page'>
-      <h1 style={{ fontSize: 45, color: 'white' }}>Home page!</h1>
-      <CarouselComponent />
+      <h1
+        style={{
+          fontSize: 45,
+          fontWeight: '800',
+          color: 'white',
+          marginTop: '20px',
+          marginBottom: '10px',
+        }}
+      >
+        Home page!
+      </h1>
+        <ImageGallery
+          items={images}
+          autoPlay={true}
+          showPlayButton={false}
+          showFullscreenButton={false}
+          slideInterval={10000}
+          lazyLoad={true}
+        />
+
+        <CardCarousel />
     </div>
   );
 };
