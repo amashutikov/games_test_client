@@ -14,7 +14,11 @@ export const CardList = () => {
   );
 
   const handleCardClick = (gameId: number) => {
-    setSearchParams({ gameId: String(gameId) });
+    setSearchParams((params) => {
+      const updatedParams = new URLSearchParams(params);
+      updatedParams.set('gameId', String(gameId));
+      return updatedParams;
+    });
   };
 
   return (

@@ -1,21 +1,54 @@
-// import { useSelector, useDispatch } from 'react-redux';
-// import { actions as selectedGenreActions } from '../../store/selectedGenre';
+import { useEffect, useState } from 'react';
+import { getGenres } from '../../api/genres';
 import './GenreSelect.scss';
-// import { SelectedGenre } from '../../types/RootState';
+import { Genre } from '../../types/Genre';
+import { useSearchParams } from 'react-router-dom';
 
-// const options = Object.entries(SelectedGenre).map(([value, label]) => ({
-//   value: value as SelectedGenre,
-//   label: label as SelectedGenre,
-// }));
+type Props = {
+  onGenreChange: (newGenre: string) => void;
+};
 
-export const GenreSelect = () => {
-  // const genre = useSelector((state: RootState) => state.selectedGenre);
+export const GenreSelect: React.FC<Props> = ({ onGenreChange }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // const dispatch = useDispatch();
+  const [genres, setGenres] = useState<Genre[] | undefined>(undefined);
 
-  return (
-    <form className='game-genre'>
-      <label>Choose game genre:</label>
-    </form>
-  );
+  const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    onGenreChange(e.target.value);
+
+    if (e.target.value === 'All genres') {
+      searchParams.delete('gameGenre');
+
+      setSearchParams(searchParams);
+      return;
+    }
+
+    setSearchParams({ gameGenre: e.target.value });
+  };
+
+  useEffect(() => {
+    getGenres().then((res) => {
+      setGenres(res);
+    });
+  }, []);
+
+  if (genres) {
+    return (
+      <form className='genres'>
+        <label>Choose game genre:</label>
+        <select
+          onChange={handleGenreChange}
+          className='genres__select'
+          value={searchParams.get('gameGenre') || 'All games' }
+        >
+          <option>All genres</option>
+          {genres.map((genre) => (
+            <option key={genre.id}>{genre.name}</option>
+          ))}
+        </select>
+      </form>
+    );
+  }
+
+  return null;
 };

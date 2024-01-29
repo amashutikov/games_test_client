@@ -1,6 +1,6 @@
 import { FetchMethod } from '../types/FetchMethod';
 
-const DATA_URL = 'https://api.igdb.com/v4/games';
+const DATA_URL = 'https://api.igdb.com/v4';
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
 
@@ -10,7 +10,7 @@ function wait(delay: number) {
   });
 }
 
-async function request(method: FetchMethod, data: string) {
+async function request(method: FetchMethod, data: string, endpoint: string) {
   const options: any = { method };
 
   if (data) {
@@ -27,7 +27,7 @@ async function request(method: FetchMethod, data: string) {
 
   // Use a CORS proxy if needed
   const proxyUrl = 'https://cors-anywhere-34sl.onrender.com/';
-  const urlWithProxy = `${proxyUrl}${DATA_URL}`;
+  const urlWithProxy = `${proxyUrl}${DATA_URL}${endpoint}`;
 
   const response = await fetch(urlWithProxy, options);
 
@@ -40,5 +40,5 @@ async function request(method: FetchMethod, data: string) {
 }
 
 export const client = {
-  get: (data: string) => request('POST', data),
+  get: (data: string, endpoint: string) => request('POST', data, endpoint),
 };

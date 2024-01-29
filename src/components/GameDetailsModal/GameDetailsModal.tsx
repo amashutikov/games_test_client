@@ -4,16 +4,18 @@ import ImageGallery from 'react-image-gallery';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getGameDetails } from '../../api/games';
-import { prepareImages } from '../../utils/prepareImages';
+import { prepareImages } from '../../helpers/prepareImages';
 import { PreparedImages } from '../../types/PreparedImages';
 import { Details } from '../../types/Details';
 import { Loader } from '../Loader/Loader';
 import { CloseButton } from '../CloseButton/CloseButton';
 import { SimilarGames } from '../SimilarGames/SimilarGames';
+import { Storyline } from '../Storyline/Storyline';
 
 export const GameDetailsModal = () => {
   const [images, setImages] = useState<PreparedImages[]>([]);
   const [game, setGame] = useState<Details | undefined>(undefined);
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -66,12 +68,21 @@ export const GameDetailsModal = () => {
             {game.name}
           </Typography>
           <div className='modal__showcase'>
-            <img
-              style={{ flex: 6 }}
-              className='modal__image'
-              alt='banner'
-              src={`https://images.igdb.com/igdb/image/upload/t_1080p/${game.artworks[0].image_id}.jpg`}
-            />
+            {game.artworks ? (
+              <img
+                style={{ flex: 6 }}
+                className='modal__image'
+                alt='banner'
+                src={`https://images.igdb.com/igdb/image/upload/t_1080p/${game.artworks[0].image_id}.jpg`}
+              />
+            ) : (
+              <img
+                style={{ flex: 6 }}
+                className='modal__image'
+                alt='banner'
+                src={`https://images.igdb.com/igdb/image/upload/t_1080p/${game.screenshots[0].image_id}.jpg`}
+              />
+            )}
 
             <Typography
               sx={{ fontFamily: 'inherit', color: 'white', flex: 4, m: '20px' }}
@@ -81,32 +92,7 @@ export const GameDetailsModal = () => {
             </Typography>
           </div>
 
-          {game.storyline && (
-            <>
-              <Typography
-                sx={{
-                  fontFamily: 'inherit',
-                  color: 'white',
-                  alignSelf: 'flex-start',
-                  margin: '20px 0 10px 20px',
-                }}
-                variant='h4'
-              >
-                Storyline:
-              </Typography>
-
-              <Typography
-                sx={{
-                  fontFamily: 'inherit',
-                  color: 'white',
-                  marginLeft: '20px',
-                }}
-                variant='body1'
-              >
-                {game.storyline}
-              </Typography>
-            </>
-          )}
+          {game.storyline && <Storyline storyline={game.storyline} />}
 
           <Typography
             sx={{

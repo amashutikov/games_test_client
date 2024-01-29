@@ -1,0 +1,58 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  align-self: center;
+
+  &__arrow {
+    color: white;
+    font-size: large;
+    cursor: pointer;
+
+    &:hover {
+      color: #3f9c13;
+      transform: scale(1.1);
+    }
+
+    &.disabled {
+      color: gray;
+      cursor: default;
+      transform: none;
+    }
+  }
+
+  &__container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &_element {
+      border-radius: 50%;
+      color: white;
+      height: 29px;
+      width: 29px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      cursor: pointer;
+
+      &:hover {
+        background-color: #3f9c13;
+      }
+
+      &.active {
+        background-color: white;
+        color: black;
+        cursor: default;
+      }
+
+      &.dots {
+        background-color: transparent;
+        cursor: default;
+      }
+    }
+  }
+}

@@ -8,10 +8,15 @@ export const { reducer, actions } = createSlice({
   initialState,
   reducers: {
     add: (state, action: PayloadAction<Game | Game[]>) => {
-      state.push(...(Array.isArray(action.payload) ? action.payload : [action.payload]));
+      state.push(
+        ...(Array.isArray(action.payload) ? action.payload : [action.payload])
+      );
+    },
+    replace: (state, action: PayloadAction<Game | Game[]>) => {
+      return Array.isArray(action.payload) ? action.payload : [action.payload];
     },
     clear: (state) => {
-      state.length = 0; 
+      state.length = 0;
     },
   },
 });
