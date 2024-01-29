@@ -2,4 +2,16 @@
   max-width: 1170px;
 
   min-height: calc(100vh - 150px);
+
+  &__gallery {
+    margin-bottom: 80px;
+  }
+
+  &__subtitle {
+    color: white;
+    font-style: inherit;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
 }

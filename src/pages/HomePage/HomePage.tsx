@@ -25,6 +25,7 @@ export const HomePage = () => {
       >
         Home page!
       </h1>
+      <div className='home_page__gallery'>
         <ImageGallery
           items={images}
           autoPlay={true}
@@ -33,8 +34,11 @@ export const HomePage = () => {
           slideInterval={10000}
           lazyLoad={true}
         />
+      </div>
 
-        <CardCarousel />
+      <h1 className='home_page__subtitle'>Top games</h1>
+
+      <CardCarousel />
     </div>
   );
 };

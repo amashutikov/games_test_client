@@ -1,0 +1,81 @@
+.carousel {
+  display: flex;
+  flex-direction: column;
+
+  &__container {
+    position: relative;
+    align-self: flex-start;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    margin-bottom: 30px;
+  }
+
+  &__button {
+    align-self: center;
+  }
+
+  &__card_container {
+    top: 0;
+    left: 0;
+    margin-left: 20px;
+    margin-right: 20px;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+  }
+
+  &__slide {
+    display: flex;
+    gap: 10px;
+
+    transition-duration: 500ms;
+  }
+
+  &__left {
+    height: 100px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+
+    font-size: large;
+
+    &:hover {
+      color: #3f9c13;
+    }
+
+    &.disabled {
+      cursor: default;
+      color: gray;
+    }
+  }
+
+  &__right {
+    height: 100px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+
+    font-size: large;
+
+    &:hover {
+      color: #3f9c13;
+    }
+
+    &.disabled {
+      cursor: default;
+      color: gray;
+    }
+  }
+}
