@@ -5,14 +5,18 @@ import { generatePages } from '../../helpers/generatePages';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-const data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+type Props = {
+  gamesCount: number;
+};
 
-export const Pagination = () => {
+export const Pagination: React.FC<Props> = ({ gamesCount }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [currentPage, setCurrentPage] = useState(
     searchParams.get('page') ? Number(searchParams.get('page')) : 1
   );
+
+  const numberOfPages = Math.floor(gamesCount / 24);
 
   useEffect(() => {
     if (currentPage !== 1) {
@@ -30,7 +34,7 @@ export const Pagination = () => {
   }, [currentPage]);
 
   const handleNextPageClick = () => {
-    if (currentPage >= data.length) {
+    if (currentPage >= numberOfPages) {
       return;
     }
 
@@ -61,7 +65,7 @@ export const Pagination = () => {
       />
 
       <div className='pagination__container'>
-        {generatePages(currentPage, data.length).map((el, i) => (
+        {generatePages(currentPage, numberOfPages).map((el, i) => (
           <div
             key={i}
             className={`pagination__container_element ${
@@ -77,7 +81,7 @@ export const Pagination = () => {
       <ArrowCircleRightIcon
         onClick={handleNextPageClick}
         className={`pagination__arrow ${
-          currentPage === data.length ? 'disabled' : ''
+          currentPage === numberOfPages ? 'disabled' : ''
         }`}
         fontSize='large'
       />

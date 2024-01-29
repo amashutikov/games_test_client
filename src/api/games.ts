@@ -18,11 +18,13 @@ export const getGames = (page: number, genre: string) => {
 
 export const getAmountOfGames = (genre: string) => {
   const data = `
-    where summary != null 
-    & artworks != null 
-    & themes != (42) 
-    & cover != null
-    ${genre !== 'All genres' ? '& genres.name = ' + `"${genre}"` : ''};`;
+  where summary != null 
+  & category = 0
+  & artworks != null 
+  & total_rating >= 80
+  & themes != (42) 
+  & cover != null
+  ${genre !== 'All genres' ? '& genres.name = ' + `"${genre}"` : ''};`;
 
   return client.get(data, '/games/count');
 };

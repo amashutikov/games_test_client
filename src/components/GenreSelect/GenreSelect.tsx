@@ -18,6 +18,8 @@ export const GenreSelect: React.FC<Props> = ({ onGenreChange }) => {
 
     if (e.target.value === 'All genres') {
       searchParams.delete('gameGenre');
+
+      setSearchParams(searchParams);
       return;
     }
 

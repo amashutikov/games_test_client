@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import './GamesPage.scss';
 import { CardList } from '../../components/CardList/CardList';
-import { Oval } from 'react-loader-spinner';
 import { GenreSelect } from '../../components/GenreSelect/GenreSelect';
-import { getGames } from '../../api/games';
+import { getAmountOfGames, getGames } from '../../api/games';
 import { useDispatch } from 'react-redux';
 import { actions as gamesToShowActions } from '../../store/gamesToShow';
 import { Loader } from '../../components/Loader/Loader';
@@ -14,14 +13,22 @@ import { Pagination } from '../../components/Pagination/Pagination';
 export const GamesPage = () => {
   const [searchParams] = useSearchParams();
 
-  const [page, setPage] = useState(0);
-  const [loadingMoreGames, setLoadingMoreGames] = useState(false);
+  const [page, setPage] = useState(
+    searchParams.get('page') ? Number(searchParams.get('page')) : 1
+  );
   const [pageLoading, setPageLoading] = useState(true);
   const [genre, setGenre] = useState(
     searchParams.get('gameGenre') || 'All genres'
   );
+  const [gamesCount, setGamesCount] = useState(0);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (Number(searchParams.get('page')) !== page) {
+      setPage(Number(searchParams.get('page')));
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const checkVerification = async () => {
@@ -44,14 +51,12 @@ export const GamesPage = () => {
     getGames(page, genre).then((res) => {
       dispatch(gamesToShowActions.replace(res));
       setPageLoading(false);
-      setLoadingMoreGames(false);
     });
   }, [page, genre]);
 
-  const handleDownloadMoreGames = () => {
-    setPage((prev) => prev + 1);
-    setLoadingMoreGames(true);
-  };
+  useEffect(() => {
+    getAmountOfGames(genre).then((res) => setGamesCount(Number(res.count)));
+  }, [genre]);
 
   const handleGenreChange = (newGenre: string) => {
     setGenre(newGenre);
@@ -69,23 +74,7 @@ export const GamesPage = () => {
 
       <CardList />
 
-      <button className='games_page__button' onClick={handleDownloadMoreGames}>
-        {loadingMoreGames ? (
-          <Oval
-            height={30}
-            width={30}
-            color='#4fa94d'
-            visible={true}
-            ariaLabel='oval-loading'
-            secondaryColor='#4fa94d'
-            strokeWidth={2}
-            strokeWidthSecondary={2}
-          />
-        ) : (
-          'Load more'
-        )}
-      </button>
-      <Pagination />
+      <Pagination gamesCount={gamesCount} />
     </div>
   );
 };
