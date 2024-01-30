@@ -3,12 +3,16 @@ import './CardCarousel.scss';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 
 export const CardCarousel = () => {
   const [, setSearchParams] = useSearchParams();
   const [carouselPosition, setCarouselPosition] = useState(0);
+
+  useEffect((
+    
+  ) => {}, []);
 
   const navigate = useNavigate();
 

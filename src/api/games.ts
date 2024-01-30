@@ -6,9 +6,9 @@ export const getGames = (page: number, genre: string) => {
     limit 24;
     sort rating desc;
     where summary != null 
+    & platforms = 6
     & category = 0
     & artworks != null 
-    & total_rating >= 80
     & themes != (42) 
     & cover != null
     ${genre !== 'All genres' ? '& genres.name = ' + `"${genre}"` : ''};`;
@@ -16,12 +16,26 @@ export const getGames = (page: number, genre: string) => {
   return client.get(data, '/games');
 };
 
+export const getTopRatedGames = () => {
+  const data = `
+    fields name, summary, id, slug, artworks.*, cover.*;
+    limit 15;
+    sort rating desc;
+    where summary != null 
+    & category = 0
+    & artworks != null 
+    & themes != (42) 
+    & cover != null;`;
+
+  return client.get(data, '/games');
+}
+
 export const getAmountOfGames = (genre: string) => {
   const data = `
   where summary != null 
+  & platforms = 6
   & category = 0
   & artworks != null 
-  & total_rating >= 80
   & themes != (42) 
   & cover != null
   ${genre !== 'All genres' ? '& genres.name = ' + `"${genre}"` : ''};`;
