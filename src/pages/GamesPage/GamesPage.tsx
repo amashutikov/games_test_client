@@ -6,7 +6,7 @@ import { getAmountOfGames, getGames } from '../../api/games';
 import { useDispatch } from 'react-redux';
 import { actions as gamesToShowActions } from '../../store/gamesToShow';
 import { Loader } from '../../components/Loader/Loader';
-import { verify } from '../../utils/verify';
+import { verify } from '../../helpers/verify';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Pagination } from '../../components/Pagination/Pagination';
 
@@ -17,9 +17,7 @@ export const GamesPage = () => {
     searchParams.get('page') ? Number(searchParams.get('page')) : 1
   );
   const [pageLoading, setPageLoading] = useState(true);
-  const [genre, setGenre] = useState(
-    searchParams.get('gameGenre') || 'All genres'
-  );
+  const [genre, setGenre] = useState(searchParams.get('gameGenreId') || null);
   const [gamesCount, setGamesCount] = useState(0);
 
   const navigate = useNavigate();
@@ -55,7 +53,7 @@ export const GamesPage = () => {
   }, [page, genre]);
 
   useEffect(() => {
-    getAmountOfGames(genre).then((res) => setGamesCount(Number(res.count)));
+    getAmountOfGames(page, genre).then((res) => setGamesCount(Number(res)));
   }, [genre]);
 
   const handleGenreChange = (newGenre: string) => {

@@ -16,7 +16,9 @@ export const CardCarousel = () => {
   const totalCards = 24; // Adjust this to the total number of cards
 
   useEffect(() => {
-    getTopGames(totalCards).then((res) => setGames(res));
+    getTopGames(totalCards).then((res) => {
+      setGames(res);
+    });
   }, []);
 
   const navigate = useNavigate();
@@ -49,7 +51,7 @@ export const CardCarousel = () => {
     navigate('/games');
   };
 
-  return (
+  return games.length > 0 ? (
     <div className='carousel'>
       <div className='carousel__container'>
         <div
@@ -101,5 +103,5 @@ export const CardCarousel = () => {
         Show all
       </Button>
     </div>
-  );
+  ) : null;
 };

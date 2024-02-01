@@ -1,4 +1,4 @@
-import { authClient, VerifyResponse, ErrorResponse } from './authClient';
+import { authClient, VerifyResponse, ErrorResponse } from '../utils/authClient';
 
 export const verify = async (): Promise<boolean> => {
   try {

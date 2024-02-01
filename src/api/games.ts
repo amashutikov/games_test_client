@@ -1,92 +1,36 @@
-import { Game } from '../types/Game';
-import { client } from '../utils/fetchClient';
+import { gamesClient } from '../utils/GamesFetchClient';
+import { client } from '../utils/IGDBFetchClient';
 
-export const getGames = (page: number, genre: string) => {
-  const data = `offset ${page * 24}; 
+export const getGames = async (page: number, genre: string | null) => {
+  const gamesIds: number[] = [];
+
+  await gamesClient
+    .get({ limit: '24', offset: `${24 * page}`, genre }, '/byGenre')
+    .then((res) => {
+      gamesIds.push(...res.games);
+    });
+
+  const data = `
     fields name, summary, id, slug, artworks.*, cover.*;
     limit 24;
-    where summary != null 
-    & release_dates.platform = (6)
-    & category = 0
-    & artworks != null 
-    & themes != (42) 
-    & cover != null
-    ${genre !== 'All genres' ? '& genres.name = ' + `"${genre}"` : ''};`;
+    where id = (${gamesIds.join(',')});`;
 
   return client.get(data, '/games');
 };
 
 export const getTopGames = async (numberOfGames: number) => {
-  type Data = {
-    id: number;
-    total_rating: number;
-    total_rating_count: number;
-  };
+  const topGamesIds: number[] = [];
 
-  let countOfGames = 0;
-  let numberOfFetches = 0;
-  let limit = 500;
-  let offset = 0;
-  const data: Data[] = [];
-  const bodyQuery = `where summary != null 
-    & category = 0
-    & artworks != null 
-    & themes != (42) 
-    & cover != null
-    & release_dates.platform = (6);`;
+  await gamesClient
+    .get({ numberOfGames }, '/top')
+    .then((res) => topGamesIds.push(...res.games));
 
-  await client.get(`${bodyQuery}`, '/games/count').then((res) => {
-    countOfGames = res.count;
-    numberOfFetches = Math.ceil(countOfGames / 500);
-  });
-
-  for (let i = 0; i < numberOfFetches; i++) {
-    await client
-      .get(
-        `fields id, total_rating, total_rating_count;
-        limit ${limit};
-        offset ${offset};
-        sort total_rating desc;
-        ${bodyQuery}`,
-        '/games'
-      )
-      .then((res) => data.push(...res));
-
-    if (countOfGames - offset < 500) {
-      limit = countOfGames - offset;
-      continue;
-    }
-    offset += 500;
-  }
-
-  const rated = data
-    .map((item) => {
-      const averageRating = item.total_rating;
-      const numberOfRatings = item.total_rating_count;
-      const weightedRating =
-        (numberOfRatings / (numberOfRatings + 100)) * averageRating;
-
-      return {
-        weightedRating,
-        id: item.id,
-      };
-    })
-    .sort((a, b) => b.weightedRating - a.weightedRating);
-
-  const top: Game[] = await client.get(
+  return client.get(
     `fields name, summary, id, slug, artworks.*, cover.*;
-    sort total_rating desc;
-    limit ${numberOfGames};
-    where id = (${rated
-      .slice(0, numberOfGames)
-      .map((item) => item.id)
-      .join(',')});`,
+        limit ${numberOfGames};
+        where id = (${topGamesIds.join(',')});`,
     '/games'
   );
-
-  console.log(rated);
-
-  return top;
 };
 
 export const getTopRatedGames = () => {
@@ -103,17 +47,16 @@ export const getTopRatedGames = () => {
   return client.get(data, '/games');
 };
 
-export const getAmountOfGames = (genre: string) => {
-  const data = `
-  where summary != null 
-  & release_dates.platform = (6)
-  & category = 0
-  & artworks != null 
-  & themes != (42) 
-  & cover != null
-  ${genre !== 'All genres' ? '& genres.name = ' + `"${genre}"` : ''};`;
+export const getAmountOfGames = async (page: number, genre: string | null) => {
+  let count: number = 0;
 
-  return client.get(data, '/games/count');
+  await gamesClient
+    .get({ limit: '24', offset: `${24 * page}`, genre }, '/byGenre')
+    .then((res) => {
+      count = res.count;
+    });
+
+  return count;
 };
 
 export const getGameDetails = (gameId: string) => {
