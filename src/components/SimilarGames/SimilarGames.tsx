@@ -11,7 +11,11 @@ export const SimilarGames: React.FC<Props> = ({ similarGames }) => {
   const [, setSearchParams] = useSearchParams();
 
   const handleClick = (gameId: number) => {
-    setSearchParams({ gameId: String(gameId) });
+    setSearchParams((params) => {
+      const updatedParams = new URLSearchParams(params);
+      updatedParams.set('gameId', String(gameId));
+      return updatedParams;
+    });
   };
 
   return (

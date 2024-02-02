@@ -1,43 +1,27 @@
-import { useEffect, useState } from 'react';
-import { getGenres } from '../../api/genres';
 import './GenreSelect.scss';
 import { Genre } from '../../types/Genre';
 import { useSearchParams } from 'react-router-dom';
-import { getGenreName } from '../../helpers/getGenreName';
 
 type Props = {
   onGenreChange: (newGenre: string) => void;
+  genres: Genre[] | undefined;
 };
 
-export const GenreSelect: React.FC<Props> = ({ onGenreChange }) => {
+export const GenreSelect: React.FC<Props> = ({ onGenreChange, genres }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const [genres, setGenres] = useState<Genre[] | undefined>(undefined);
-  const [selectedGenre, setSelectedGenre] = useState('All genres');
 
   const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onGenreChange(e.target.value);
 
     if (e.target.value === 'All genres') {
-      searchParams.delete('gameGenreId');
+      searchParams.delete('gameGenre');
 
-      setSelectedGenre('All genres');
       setSearchParams(searchParams);
       return;
     }
 
-    setSearchParams({ gameGenreId: e.target.value });
-
-    const newGenre = getGenreName(Number(searchParams.get('genreId')), genres);
-
-    setSelectedGenre(newGenre);
+    setSearchParams({ gameGenre: e.target.value });
   };
-
-  useEffect(() => {
-    getGenres().then((res) => {
-      setGenres(res);
-    });
-  }, []);
 
   return (
     <form className='genres'>
@@ -45,12 +29,12 @@ export const GenreSelect: React.FC<Props> = ({ onGenreChange }) => {
       <select
         onChange={handleGenreChange}
         className='genres__select'
-        value={selectedGenre}
+        value={searchParams.get('gameGenre') || 'All genres'}
       >
         <option>All genres</option>
         {genres &&
           genres.map((genre) => (
-            <option key={genre.id} value={genre.id}>
+            <option key={genre.id}>
               {genre.name}
             </option>
           ))}

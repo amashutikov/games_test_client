@@ -5,10 +5,15 @@ export const getGames = async (page: number, genre: string | null) => {
   const gamesIds: number[] = [];
 
   await gamesClient
-    .get({ limit: '24', offset: `${24 * page}`, genre }, '/byGenre')
+    .get(
+      { limit: '24', offset: `${24 * (page - 1)}`, genre: Number(genre) },
+      '/byGenre'
+    )
     .then((res) => {
       gamesIds.push(...res.games);
     });
+
+  console.log(gamesIds);
 
   const data = `
     fields name, summary, id, slug, artworks.*, cover.*;
@@ -51,7 +56,10 @@ export const getAmountOfGames = async (page: number, genre: string | null) => {
   let count: number = 0;
 
   await gamesClient
-    .get({ limit: '24', offset: `${24 * page}`, genre }, '/byGenre')
+    .get(
+      { limit: '24', offset: `${24 * (page - 1)}`, genre: Number(genre) },
+      '/byGenre'
+    )
     .then((res) => {
       count = res.count;
     });

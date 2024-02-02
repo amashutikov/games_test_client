@@ -9,6 +9,9 @@ import { Loader } from '../../components/Loader/Loader';
 import { verify } from '../../helpers/verify';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Pagination } from '../../components/Pagination/Pagination';
+import { getGenres } from '../../api/genres';
+import { Genre } from '../../types/Genre';
+import { getGenreId } from '../../helpers/getGenreId';
 
 export const GamesPage = () => {
   const [searchParams] = useSearchParams();
@@ -17,14 +20,15 @@ export const GamesPage = () => {
     searchParams.get('page') ? Number(searchParams.get('page')) : 1
   );
   const [pageLoading, setPageLoading] = useState(true);
-  const [genre, setGenre] = useState(searchParams.get('gameGenreId') || null);
+  const [genre, setGenre] = useState(searchParams.get('gameGenre') || null);
   const [gamesCount, setGamesCount] = useState(0);
+  const [genres, setGenres] = useState<Genre[] | undefined>(undefined);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (Number(searchParams.get('page')) !== page) {
-      setPage(Number(searchParams.get('page')));
+      setPage(searchParams.get('page') ? Number(searchParams.get('page')) : 1);
     }
   }, [searchParams]);
 
@@ -39,6 +43,10 @@ export const GamesPage = () => {
     };
 
     checkVerification();
+
+    getGenres().then((res) => {
+      setGenres(res);
+    });
   }, []);
 
   const dispatch = useDispatch();
@@ -46,29 +54,30 @@ export const GamesPage = () => {
   useEffect(() => {
     setPageLoading(true);
 
-    getGames(page, genre).then((res) => {
+    const genreId = String(getGenreId(genre, genres));
+
+    getGames(page, genreId).then((res) => {
       dispatch(gamesToShowActions.replace(res));
       setPageLoading(false);
     });
   }, [page, genre]);
 
   useEffect(() => {
-    getAmountOfGames(page, genre).then((res) => setGamesCount(Number(res)));
+    const genreId = String(getGenreId(genre, genres));
+
+    getAmountOfGames(page, genreId).then((res) => setGamesCount(Number(res)));
   }, [genre]);
 
   const handleGenreChange = (newGenre: string) => {
     setGenre(newGenre);
   };
 
-  if (pageLoading) {
-    return <Loader />;
-  }
-
   return (
     <div className='games_page'>
+      {pageLoading && <Loader />}
       <h1 className='games_page__title'>All games</h1>
 
-      <GenreSelect onGenreChange={handleGenreChange} />
+      <GenreSelect onGenreChange={handleGenreChange} genres={genres} />
 
       <CardList />
 
