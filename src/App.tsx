@@ -10,6 +10,7 @@ import { RegisterSuccessPage } from './pages/RegisterSuccessPage/RegisterSuccess
 import { ActivatePage } from './pages/ActivatePage/ActivatePage';
 import { LoginPage } from './pages/LoginPage/LoginPage';
 import { Development } from './components/Development/Development';
+import { GoToTopButton } from './components/GoToTopButton/GoToTopButton';
 
 // import { AuthContext } from './components/AuthContext';
 // import { RequireAuth } from './components/RequireAuth';
@@ -37,6 +38,8 @@ function App() {
 
           <Route path='/' element={<HomePage />} />
         </Routes>
+
+        <GoToTopButton />
       </main>
       <Footer />
     </>

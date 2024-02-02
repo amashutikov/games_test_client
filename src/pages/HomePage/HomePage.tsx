@@ -3,8 +3,14 @@ import ImageGallery from 'react-image-gallery';
 import { getTitleImages } from '../../helpers/getTitleImages';
 import { PreparedImages } from '../../types/PreparedImages';
 import { CardCarousel } from '../../components/CardCarousel/CardCarousel';
+import { useState } from 'react';
+import { Loader } from '../../components/Loader/Loader';
+import { GameDetailsModal } from '../../components/GameDetailsModal/GameDetailsModal';
+import { useSearchParams } from 'react-router-dom';
 
 export const HomePage = () => {
+  const [searchParams] = useSearchParams();
+
   const images: PreparedImages[] = getTitleImages([
     'ar2nxz',
     'ar1bqr',
@@ -12,8 +18,17 @@ export const HomePage = () => {
     'ar2d8r',
   ]);
 
+  const [pageIsLoading, setPageIsLoading] = useState(true);
+
+  const handleLoadingToggle = () => {
+    console.log('here');
+    setPageIsLoading((prev) => !prev);
+  };
+
   return (
     <div className='home_page'>
+      {pageIsLoading && <Loader />}
+
       <h1
         style={{
           fontSize: 45,
@@ -38,7 +53,9 @@ export const HomePage = () => {
 
       <h1 className='home_page__subtitle'>Top games</h1>
 
-      <CardCarousel />
+      <CardCarousel loadingToggle={handleLoadingToggle} />
+
+      {searchParams.has('gameId') && <GameDetailsModal />}
     </div>
   );
 };

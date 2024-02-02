@@ -13,8 +13,6 @@ export const getGames = async (page: number, genre: string | null) => {
       gamesIds.push(...res.games);
     });
 
-  console.log(gamesIds);
-
   const data = `
     fields name, summary, id, slug, artworks.*, cover.*;
     limit 24;

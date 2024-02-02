@@ -8,7 +8,11 @@ import { Button } from '@mui/material';
 import { getTopGames } from '../../api/games';
 import { Game } from '../../types/Game';
 
-export const CardCarousel = () => {
+type Props = {
+  loadingToggle: () => void;
+};
+
+export const CardCarousel: React.FC<Props> = ({ loadingToggle }) => {
   const [, setSearchParams] = useSearchParams();
   const [carouselPosition, setCarouselPosition] = useState(0);
   const [games, setGames] = useState<Game[]>([]);
@@ -18,6 +22,7 @@ export const CardCarousel = () => {
   useEffect(() => {
     getTopGames(totalCards).then((res) => {
       setGames(res);
+      loadingToggle();
     });
   }, []);
 
