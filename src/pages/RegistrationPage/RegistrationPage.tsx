@@ -8,7 +8,7 @@ import './RegistrationPage.scss';
 import { authClient } from '../../utils/authClient';
 import { Link, useNavigate } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import { verify } from '../../utils/verify';
+import { verify } from '../../helpers/verify';
 import { Loader } from '../../components/Loader/Loader';
 
 const initialValues = {
@@ -46,7 +46,7 @@ export const RegistrationPage = () => {
   const [confirmationVisible, setConfirmationVisible] = useState(false);
   const [pageLoading, setPageLoading] = useState(true);
 
-    useEffect(() => {
+  useEffect(() => {
     const checkVerification = async () => {
       const result = await verify();
       if (result) {
@@ -59,7 +59,6 @@ export const RegistrationPage = () => {
 
     checkVerification();
   }, []);
-
 
   const handleVisibilityToggle = (
     setter: React.Dispatch<React.SetStateAction<boolean>>
@@ -101,9 +100,8 @@ export const RegistrationPage = () => {
   });
 
   if (pageLoading) {
-    return <Loader />
+    return <Loader />;
   }
-
 
   return (
     <div className='registration_page'>

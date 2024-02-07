@@ -1,5 +1,24 @@
 .home_page {
-  max-width: 1024px;
-  
+  max-width: 1170px;
+  color: white;
+
   min-height: calc(100vh - 150px);
+  display: flex;
+  flex-direction: column;
+
+  &__gallery {
+    margin-bottom: 80px;
+  }
+
+  &__news {
+    margin-bottom: 60px;
+  }
+
+  &__subtitle {
+    color: white;
+    font-style: inherit;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
 }

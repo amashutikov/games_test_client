@@ -1,32 +1,68 @@
-import { client } from '../utils/fetchClient';
+import { gamesClient } from '../utils/GamesFetchClient';
+import { client } from '../utils/IGDBFetchClient';
 
-export const getGames = (page: number, genre: string) => {
-  const data = `offset ${page * 24}; 
+export const getGames = async (page: number, genre: string | null) => {
+  const gamesIds: number[] = [];
+
+  await gamesClient
+    .get(
+      { limit: '24', offset: `${24 * (page - 1)}`, genre: Number(genre) },
+      '/byGenre'
+    )
+    .then((res) => {
+      gamesIds.push(...res.games);
+    });
+
+  const data = `
     fields name, summary, id, slug, artworks.*, cover.*;
     limit 24;
-    sort rating desc;
-    where summary != null 
-    & category = 0
-    & artworks != null 
-    & total_rating >= 80
-    & themes != (42) 
-    & cover != null
-    ${genre !== 'All genres' ? '& genres.name = ' + `"${genre}"` : ''};`;
+    where id = (${gamesIds.join(',')});`;
 
   return client.get(data, '/games');
 };
 
-export const getAmountOfGames = (genre: string) => {
-  const data = `
-  where summary != null 
-  & category = 0
-  & artworks != null 
-  & total_rating >= 80
-  & themes != (42) 
-  & cover != null
-  ${genre !== 'All genres' ? '& genres.name = ' + `"${genre}"` : ''};`;
+export const getTopGames = async (numberOfGames: number) => {
+  const topGamesIds: number[] = [];
 
-  return client.get(data, '/games/count');
+  await gamesClient
+    .get({ numberOfGames }, '/top')
+    .then((res) => topGamesIds.push(...res.games));
+
+  return client.get(
+    `fields name, summary, id, slug, artworks.*, cover.*;
+        limit ${numberOfGames};
+        where id = (${topGamesIds.join(',')});`,
+    '/games'
+  );
+};
+
+export const getTopRatedGames = () => {
+  const data = `
+    fields name, summary, id, slug, artworks.*, cover.*;
+    limit 15;
+    sort rating desc;
+    where summary != null 
+    & category = 0
+    & artworks != null 
+    & themes != (42) 
+    & cover != null;`;
+
+  return client.get(data, '/games');
+};
+
+export const getAmountOfGames = async (page: number, genre: string | null) => {
+  let count: number = 0;
+
+  await gamesClient
+    .get(
+      { limit: '24', offset: `${24 * (page - 1)}`, genre: Number(genre) },
+      '/byGenre'
+    )
+    .then((res) => {
+      count = res.count;
+    });
+
+  return count;
 };
 
 export const getGameDetails = (gameId: string) => {

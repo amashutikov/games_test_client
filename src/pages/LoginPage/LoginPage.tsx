@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
-import { verify } from '../../utils/verify';
+import { verify } from '../../helpers/verify';
 import { Loader } from '../../components/Loader/Loader';
 
 const initialValues = {

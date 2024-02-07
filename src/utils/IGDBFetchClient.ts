@@ -19,7 +19,7 @@ async function request(method: FetchMethod, data: string, endpoint: string) {
     options.headers = {
       'Client-ID': CLIENT_ID,
       'Content-Type': 'text/plain',
-      'Authorization': `Bearer ${ACCESS_TOKEN}`,
+      Authorization: `Bearer ${ACCESS_TOKEN}`,
     };
   }
 

@@ -23,6 +23,8 @@ export const Pagination: React.FC<Props> = ({ gamesCount }) => {
       setSearchParams((params) => {
         const updatedParams = new URLSearchParams(params);
         updatedParams.set('page', String(currentPage));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
         return updatedParams;
       });
 
@@ -31,6 +33,8 @@ export const Pagination: React.FC<Props> = ({ gamesCount }) => {
 
     searchParams.delete('page');
     setSearchParams(searchParams);
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentPage]);
 
   const handleNextPageClick = () => {

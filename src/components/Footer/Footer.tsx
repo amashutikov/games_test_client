@@ -1,9 +1,10 @@
+import { Logo } from '../Logo/Logo';
 import './Footer.scss';
 
 export const Footer = () => {
   return (
     <div className='footer'>
-      <h1>Logo</h1>
+      <Logo />
     </div>
   );
 };

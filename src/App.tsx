@@ -10,11 +10,10 @@ import { RegisterSuccessPage } from './pages/RegisterSuccessPage/RegisterSuccess
 import { ActivatePage } from './pages/ActivatePage/ActivatePage';
 import { LoginPage } from './pages/LoginPage/LoginPage';
 import { Development } from './components/Development/Development';
+import { GoToTopButton } from './components/GoToTopButton/GoToTopButton';
+import { NewsPage } from './pages/NewsPage/NewsPage';
 
 // import { AuthContext } from './components/AuthContext';
-// import { RequireAuth } from './components/RequireAuth';
-// import { UsersPage } from './pages/UsersPage';
-// import { Loader } from './components/Loader.jsx';
 // import { usePageError } from './hooks/usePageError.js';
 
 function App() {
@@ -35,8 +34,12 @@ function App() {
 
           <Route path='/development' element={<Development />} />
 
+          <Route path='/news/:newsId' element={<NewsPage />} />
+
           <Route path='/' element={<HomePage />} />
         </Routes>
+
+        <GoToTopButton />
       </main>
       <Footer />
     </>

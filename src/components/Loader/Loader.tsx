@@ -1,7 +1,16 @@
 import { Oval } from 'react-loader-spinner';
 import './Loader.scss';
+import { useEffect } from 'react';
 
 export const Loader = () => {
+  useEffect(() => {
+    document.body.classList.add('loader-open');
+
+    return () => {
+      document.body.classList.remove('loader-open');
+    };
+  }, []);
+
   return (
     <div className='loader'>
       <Oval
