@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { Loader } from '../../components/Loader/Loader';
 import { GameDetailsModal } from '../../components/GameDetailsModal/GameDetailsModal';
 import { useSearchParams } from 'react-router-dom';
+import { NewsSection } from '../../components/NewsSection/NewsSection';
 
 export const HomePage = () => {
   const [searchParams] = useSearchParams();
@@ -21,7 +22,6 @@ export const HomePage = () => {
   const [pageIsLoading, setPageIsLoading] = useState(true);
 
   const handleLoadingToggle = () => {
-    console.log('here');
     setPageIsLoading((prev) => !prev);
   };
 
@@ -51,7 +51,13 @@ export const HomePage = () => {
         />
       </div>
 
-      <h1 className='home_page__subtitle'>Top games</h1>
+      <h2 className='home_page__subtitle'>Recent gaming news</h2>
+
+      <div className='home_page__news'>
+        <NewsSection />
+      </div>
+
+      <h2 className='home_page__subtitle'>Top games</h2>
 
       <CardCarousel loadingToggle={handleLoadingToggle} />
 

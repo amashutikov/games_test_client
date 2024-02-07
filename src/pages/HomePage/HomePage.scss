@@ -1,10 +1,17 @@
 .home_page {
   max-width: 1170px;
+  color: white;
 
   min-height: calc(100vh - 150px);
+  display: flex;
+  flex-direction: column;
 
   &__gallery {
     margin-bottom: 80px;
+  }
+
+  &__news {
+    margin-bottom: 60px;
   }
 
   &__subtitle {
