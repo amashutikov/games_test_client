@@ -1,8 +1,9 @@
 .header {
+  box-sizing: border-box;
   background-color: #1d1d1d;
   color: white;
 
-  height: 45px;
+  height: 75px;
   padding: 15px;
 
   display: flex;
@@ -10,7 +11,7 @@
   align-items: center;
 
   &__menu {
-    background-color:  #3f9c13;
+    background-color: #3f9c13;
     padding: 5px 5px;
     height: 30px;
     width: 30px;
@@ -25,8 +26,6 @@
 
   &__authorization {
     height: 30px;
-    width: 30px;
-    border: 1px solid white;
     padding: 5px;
     border-radius: 10px;
     margin-right: 20px;
@@ -34,22 +33,46 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 5px;
 
     transition-duration: 500ms;
 
     &-authorized {
-      background-color: #3f9c13;
+      color: #3f9c13;
     }
-
 
     &:hover {
       cursor: pointer;
-      transform: scale(110%);
+      transform: scale(105%);
     }
   }
 
   &__actions {
     display: flex;
     align-items: center;
+
+    &_links {
+      display: flex;
+      gap: 20px;
+      height: 45px;
+    }
+
+    &_link {
+      text-decoration: none;
+      color: inherit;
+
+      font-weight: 600;
+      line-height: 45px;
+
+      &.active {
+        text-decoration: underline 2px solid;
+        text-decoration-color: #3f9c13;
+      }
+
+      &:hover {
+        text-decoration: underline 2px solid;
+        text-decoration-color: #3f9c13;
+      }
+    }
   }
 }
