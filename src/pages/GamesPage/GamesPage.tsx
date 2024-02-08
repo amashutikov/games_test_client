@@ -81,7 +81,7 @@ export const GamesPage = () => {
 
       <CardList />
 
-      <Pagination gamesCount={gamesCount} />
+      <Pagination count={gamesCount} itemsPerPage={24} />
     </div>
   );
 };

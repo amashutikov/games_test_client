@@ -1,0 +1,43 @@
+.custom-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.news_line {
+  background-color: rgba($color: black, $alpha: 0.2);
+
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 15px;
+
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+
+  &__title {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 34px;
+  }
+
+  &:hover .news_line__title {
+    text-decoration: underline;
+    text-decoration-color: #3f9c13;
+  }
+
+  &__info {
+    margin-left: 10px;
+    text-decoration: none;
+  }
+
+  &__time {
+    font-size: 10px;
+    text-decoration: none;
+  }
+
+  &__image {
+    border-radius: 2px;
+    max-height: 100px;
+  }
+}

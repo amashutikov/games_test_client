@@ -7,7 +7,7 @@ export const NewsSection = () => {
   const [news, setNews] = useState<News[] | undefined>(undefined);
 
   useEffect(() => {
-    getNews().then((res) => setNews(res));
+    getNews().then((res) => setNews(res.news));
   }, []);
 
   if (!news) {

@@ -7,7 +7,11 @@ export const Logo = () => {
   };
 
   return (
-    <Link to={'/'} onClick={handleLogoClick}>
+    <Link
+      to={'/'}
+      onClick={handleLogoClick}
+      style={{ display: 'block', width: 'max-content' }}
+    >
       <h1 className='logo'>Logo</h1>
     </Link>
   );
