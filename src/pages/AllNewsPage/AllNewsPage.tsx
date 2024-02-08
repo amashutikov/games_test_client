@@ -10,11 +10,14 @@ import { useSearchParams } from 'react-router-dom';
 export const AllNewsPage = () => {
   const [searchParams] = useSearchParams();
 
+  const itemsPerPage = 5;
+
   const [pageLoading, setPageLoading] = useState(true);
   const [news, setNews] = useState<News[] | undefined>(undefined);
   const [page, setPage] = useState(
     searchParams.get('page') ? Number(searchParams.get('page')) : 1
   );
+  const [numberOfNews, setNumberOfNews] = useState(0);
 
   useEffect(() => {
     if (Number(searchParams.get('page')) !== page) {
@@ -25,8 +28,9 @@ export const AllNewsPage = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    getNews(10, (page - 1) * 10).then((res) => {
-      setNews(res);
+    getNews(itemsPerPage, (page - 1) * itemsPerPage).then((res) => {
+      setNews(res.news);
+      setNumberOfNews(res.numberOfNews);
       setPageLoading(false);
     });
   }, [page]);
@@ -42,7 +46,7 @@ export const AllNewsPage = () => {
         news?.map((item) => <NewsLine news={item} key={item._id} />)
       )}
 
-      <Pagination count={50} itemsPerPage={10} />
+      <Pagination count={numberOfNews} itemsPerPage={itemsPerPage} />
     </div>
   );
 };
