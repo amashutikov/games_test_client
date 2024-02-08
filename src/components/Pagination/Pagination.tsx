@@ -6,17 +6,18 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 type Props = {
-  gamesCount: number;
+  count: number;
+  itemsPerPage: number;
 };
 
-export const Pagination: React.FC<Props> = ({ gamesCount }) => {
+export const Pagination: React.FC<Props> = ({ count, itemsPerPage }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [currentPage, setCurrentPage] = useState(
     searchParams.get('page') ? Number(searchParams.get('page')) : 1
   );
 
-  const numberOfPages = Math.floor(gamesCount / 24);
+  const numberOfPages = Math.ceil(count / itemsPerPage);
 
   useEffect(() => {
     if (currentPage !== 1) {

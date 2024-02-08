@@ -9,10 +9,12 @@ export const NewsComponent = () => {
 
   const { newsId } = useParams();
 
-  console.log(newsId);
-
   useEffect(() => {
-    getNewsById('65c234c0679bb802b0c55d48').then((res) => {
+    if (!newsId) {
+      return;
+    }
+
+    getNewsById(newsId).then((res) => {
       setNews(res);
     });
   }, []);
