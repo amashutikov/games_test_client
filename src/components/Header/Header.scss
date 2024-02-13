@@ -37,10 +37,6 @@
 
     transition-duration: 500ms;
 
-    &-authorized {
-      color: #3f9c13;
-    }
-
     &:hover {
       cursor: pointer;
       transform: scale(105%);

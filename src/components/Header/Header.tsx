@@ -55,13 +55,16 @@ export const Header = () => {
           <VscMenu color='white' size={28} />
         </div>
       </div>
-      <Link to={'/settings'}>
-        <div className='header__authorization header__authorization-authorized'>
-          {/* add header__authorization-authorized class if the user is authorized */}
-          <VscAccount color='white' size={20} />
-          {user ? user?.email : <Link to={'/registration'}>Sign In</Link>}
-        </div>
-      </Link>
+
+      <div className='header__authorization '>
+        {/* add header__authorization-authorized class if the user is authorized */}
+        <VscAccount color='white' size={20} />
+        {user ? (
+          <Link to={'/settings'}>{user.email}</Link>
+        ) : (
+          <Link to={'/registration'}>Sign In</Link>
+        )}
+      </div>
     </div>
   );
 };

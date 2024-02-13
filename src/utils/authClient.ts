@@ -1,6 +1,6 @@
 import { FetchMethod } from '../types/FetchMethod';
 
-const BASE_URL = 'http://localhost:3006';
+const BASE_URL = 'https://games-server-1qpi.onrender.com';
 
 export interface ErrorResponse {
   message: string;

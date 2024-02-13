@@ -1,6 +1,6 @@
 import { FetchMethod } from '../types/FetchMethod';
 
-const DATA_URL = 'http://localhost:3006/news';
+const DATA_URL = 'https://games-server-1qpi.onrender.com/news';
 
 function wait(delay: number) {
   return new Promise((resolve) => {
