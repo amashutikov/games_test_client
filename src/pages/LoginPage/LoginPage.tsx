@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { verify } from '../../helpers/verify';
 import { Loader } from '../../components/Loader/Loader';
+import { useUser } from '../../contexts/UserContext';
 
 const initialValues = {
   email: '',
@@ -20,6 +21,8 @@ export const LoginPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [pageLoading, setPageLoading] = useState(true);
 
+  const { updateUser } = useUser();
+
   const handleVisibilityToggle = (
     setter: React.Dispatch<React.SetStateAction<boolean>>
   ) => setter((prev) => !prev);
@@ -27,7 +30,12 @@ export const LoginPage = () => {
   useEffect(() => {
     const checkVerification = async () => {
       const result = await verify();
-      if (result) {
+      if (typeof result !== 'boolean') {
+        console.log(result);
+        updateUser({
+          email: result.user.email,
+          id: result.user.id,
+        });
         navigate('/games');
       } else {
         setPageLoading(false);

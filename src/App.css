@@ -1,6 +1,6 @@
 .main {
   display: flex;
   justify-content: center;
-  background: radial-gradient(circle, #3f9c13 0%, #181818 90%);
+  background: radial-gradient(circle at left, #3f9c13 0%, #181818 90%);
   color: white;
 }

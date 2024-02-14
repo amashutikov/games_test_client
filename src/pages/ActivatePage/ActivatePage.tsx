@@ -26,7 +26,7 @@ export const ActivatePage = () => {
       <p className='activate_page__text'>
         You can now{' '}
         <Link to='/' className='activate_page__link'>
-          go back to the home activate_page
+          go back to the home page
         </Link>{' '}
         and log in using your credentials. <br /> If you have any questions or
         need further assistance,{' '}

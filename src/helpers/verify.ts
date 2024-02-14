@@ -1,9 +1,9 @@
 import { authClient, VerifyResponse, ErrorResponse } from '../utils/authClient';
 
-export const verify = async (): Promise<boolean> => {
+export const verify = async (): Promise<VerifyResponse | boolean> => {
   try {
     const res: VerifyResponse = await authClient.verify();
-    return res.success;
+    return res;
   } catch (error) {
     if (isErrorResponse(error)) {
       console.error('Error during verification:', error.message);

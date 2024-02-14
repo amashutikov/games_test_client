@@ -13,6 +13,7 @@ import { Development } from './components/Development/Development';
 import { GoToTopButton } from './components/GoToTopButton/GoToTopButton';
 import { NewsPage } from './pages/NewsPage/NewsPage';
 import { AllNewsPage } from './pages/AllNewsPage/AllNewsPage';
+import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
 
 // import { AuthContext } from './components/AuthContext';
 // import { usePageError } from './hooks/usePageError.js';
@@ -39,6 +40,8 @@ function App() {
           <Route path='/news/:newsId' element={<NewsPage />} />
 
           <Route path='/' element={<HomePage />} />
+
+          <Route path='*' element={<NotFoundPage />} />
         </Routes>
 
         <GoToTopButton />
