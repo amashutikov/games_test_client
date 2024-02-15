@@ -1,0 +1,64 @@
+.settings {
+  min-height: calc(100vh - 150px);
+  width: 100%;
+  max-width: 1170px;
+  padding: 20px;
+
+  box-sizing: border-box;
+
+  &__container {
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+
+  &__title {
+    font-size: 36px;
+    font-weight: 600;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      border-bottom: 1px solid black;
+    }
+  }
+
+  &__bio {
+    display: flex;
+    margin-top: 20px;
+    position: relative;
+
+    &_container {
+      margin-top: 10px;
+    }
+
+    &_image {
+      height: 80px;
+      width: 80px;
+      border-radius: 10px;
+      margin-right: 20px;
+    }
+
+    &_name {
+      font-size: 36px;
+      font-weight: 400;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      border-bottom: 1px solid black;
+    }
+  }
+
+  &__inputs {
+    margin-top: 20px;
+  }
+}

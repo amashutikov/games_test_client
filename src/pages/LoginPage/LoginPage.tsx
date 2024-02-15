@@ -6,8 +6,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
-import { verify } from '../../helpers/verify';
 import { Loader } from '../../components/Loader/Loader';
+import { verify } from '../../helpers/verify';
 import { useUser } from '../../contexts/UserContext';
 
 const initialValues = {
@@ -31,11 +31,6 @@ export const LoginPage = () => {
     const checkVerification = async () => {
       const result = await verify();
       if (typeof result !== 'boolean') {
-        console.log(result);
-        updateUser({
-          email: result.user.email,
-          id: result.user.id,
-        });
         navigate('/games');
       } else {
         setPageLoading(false);
@@ -55,8 +50,12 @@ export const LoginPage = () => {
 
     authClient
       .login({ email: values.email, password: values.password })
-      .then(() => {
+      .then((res: any) => {
         localStorage.setItem('successRedirect', 'true');
+        updateUser({
+          email: res.user.email,
+          id: res.user.id,
+        });
         setTimeout(() => setIsSubmiting(false), 500);
 
         navigate('/games');

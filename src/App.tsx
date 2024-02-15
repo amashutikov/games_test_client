@@ -14,11 +14,32 @@ import { GoToTopButton } from './components/GoToTopButton/GoToTopButton';
 import { NewsPage } from './pages/NewsPage/NewsPage';
 import { AllNewsPage } from './pages/AllNewsPage/AllNewsPage';
 import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
+import { useEffect } from 'react';
+import { verify } from './helpers/verify';
+import { useUser } from './contexts/UserContext';
 
 // import { AuthContext } from './components/AuthContext';
 // import { usePageError } from './hooks/usePageError.js';
 
 function App() {
+  const { updateUser } = useUser();
+
+  useEffect(() => {
+    const checkVerification = async () => {
+      const result = await verify();
+      if (typeof result !== 'boolean') {
+        updateUser({
+          email: result.user.email,
+          id: result.user.id,
+        });
+      } else {
+        return;
+      }
+    };
+
+    checkVerification();
+  }, []);
+
   return (
     <>
       <Header />
