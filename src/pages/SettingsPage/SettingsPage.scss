@@ -7,7 +7,7 @@
   box-sizing: border-box;
 
   &__container {
-    padding: 10px;
+    padding: 20px;
     border: 1px solid black;
     border-radius: 10px;
   }
@@ -16,6 +16,8 @@
     font-size: 36px;
     font-weight: 600;
     position: relative;
+
+    padding: 15px 0;
 
     &::after {
       content: '';
@@ -51,7 +53,7 @@
     &::after {
       content: '';
       position: absolute;
-      bottom: -10px;
+      bottom: -15px;
       left: 0;
       width: 100%;
       border-bottom: 1px solid black;
@@ -60,5 +62,64 @@
 
   &__inputs {
     margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 10px;
+
+    &_container {
+      width: 49%;
+    }
+
+    &_input {
+      box-sizing: border-box;
+
+      width: 100%;
+      height: 56px;
+      padding: 16.5px 14px;
+      background-color: transparent;
+      border: 1px solid #363636;
+      border-radius: 5px;
+
+      transition-duration: 500ms;
+
+      color: white;
+      font-family: inherit;
+      font-size: 16px;
+
+      &::placeholder {
+        color: lightgray;
+      }
+
+      &:hover {
+        border-color: black;
+      }
+
+      &:focus {
+        border-color: #3f9c13;
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
+
+      &:active {
+        border-color: #3f9c13;
+      }
+
+      &.error {
+        border-color: red;
+
+        &:hover,
+        &:focus,
+        &:focus-visible,
+        &:active {
+          border-color: red;
+        }
+      }
+    }
+
+    &_label {
+      padding: 10px 0;
+    }
   }
 }

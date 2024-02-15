@@ -1,7 +1,45 @@
 import './SettingsPage.scss';
 import { Button } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useState } from 'react';
+import debounce from 'lodash.debounce';
 
 export const SettingsPage = () => {
+  const [suggestions, setSuggestions] = useState<string[]>(['...', '1']);
+  const [country, setCountry] = useState('');
+
+  const handleCountryFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    setCountry(inputValue);
+
+    if (e.target.value.trim().length !== 0) {
+      debounce(() => {
+        console.log('here');
+        fetch(
+          `https://restcountries.com/v3.1/name/${inputValue}?fields=name,flag`
+        )
+          .then((res) => {
+            if (!res.ok) {
+              console.error('Network response was not ok');
+              throw new Error('Network response was not ok');
+            }
+            return res.json();
+          })
+          .then((data) => {
+            console.log(
+              data.map((country: any) => country.flag + country.name.common)
+            );
+            setSuggestions(
+              data.map((country: any) => country.flag + country.name.common)
+            );
+          })
+          .catch((err) => {
+            console.error('Fetch error:', err);
+          });
+      }, 200);
+    }
+  };
+
   return (
     <div className='settings'>
       <div className='settings__container'>
@@ -58,7 +96,84 @@ export const SettingsPage = () => {
             </div>
           </div>
         </div>
-        <div className='settings__inputs'></div>
+        <div className='settings__inputs'>
+          <div className='settings__inputs_container'>
+            <legend className={`settings__inputs_label `}>FIRST NAME</legend>
+            <input
+              className={`settings__inputs_input`}
+              type='text'
+              name='email'
+              placeholder={'Enter your first name'}
+            />
+          </div>
+
+          <div className='settings__inputs_container'>
+            <legend className={`settings__inputs_label `}>SECOND NAME</legend>
+            <input
+              className={`settings__inputs_input`}
+              type='text'
+              name='email'
+              placeholder={'Enter your second name'}
+            />
+          </div>
+
+          <div className='settings__inputs_container'>
+            <legend className={`settings__inputs_label `}>EMAIL</legend>
+            <input
+              className={`settings__inputs_input`}
+              type='text'
+              name='email'
+              placeholder={'Enter your first name'}
+              disabled
+            />
+          </div>
+
+          <div className='settings__inputs_container'>
+            <legend className={`settings__inputs_label `}>COUNTRY</legend>
+            <input
+              className={`settings__inputs_input`}
+              type='text'
+              name='country'
+              placeholder={'Enter your country'}
+              list='suggestions'
+              value={country}
+              onChange={handleCountryFieldChange}
+            />
+            <datalist id='suggestions'>
+              {suggestions.map((option: string, index: number) => (
+                <option
+                  key={index}
+                  value={option}
+                  disabled={option === '...'}
+                />
+              ))}
+            </datalist>
+          </div>
+
+          <Button
+            variant='contained'
+            type='submit'
+            fullWidth
+            size='medium'
+            sx={{
+              backgroundColor: '#3f9c13',
+              transitionDuration: '1000ms',
+              fontFamily: 'inherit',
+              maxWidth: '200px',
+              height: '40px',
+              margin: '25px auto 0',
+              '&:hover': {
+                transform: 'scale(100.5%)',
+                backgroundColor: '#3f9c13',
+              },
+            }}
+          >
+            {
+              // eslint-disable-next-line no-constant-condition
+              true ? <CircularProgress size={20} color='inherit' /> : 'Save'
+            }
+          </Button>
+        </div>
       </div>
     </div>
   );
