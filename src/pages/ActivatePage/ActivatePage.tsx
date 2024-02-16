@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { authClient } from '../../utils/authClient';
+import { authClient } from '../../utils/AuthClient';
 import './ActivatePage.scss';
 
 export const ActivatePage = () => {

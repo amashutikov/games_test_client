@@ -1,7 +1,7 @@
 import './LoginPage.scss';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Typography, Button, Box } from '@mui/material';
-import { authClient } from '../../utils/authClient';
+import { authClient } from '../../utils/AuthClient';
 import { Link, useNavigate } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { useEffect, useState } from 'react';

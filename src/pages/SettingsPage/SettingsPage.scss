@@ -116,6 +116,10 @@
           border-color: red;
         }
       }
+
+      &.disabled {
+        border-color: gray;
+      }
     }
 
     &_label {
@@ -123,3 +127,4 @@
     }
   }
 }
+

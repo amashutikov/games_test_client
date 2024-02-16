@@ -48,7 +48,9 @@ export const Header = () => {
         {/* add header__authorization-authorized class if the user is authorized */}
         <VscAccount color='white' size={20} />
         {userData.email ? (
-          <Link to={'/settings'}>{userData.name || userData.email}</Link>
+          <Link to={'/settings'}>
+            {userData.firstName || userData.secondName || userData.email}
+          </Link>
         ) : (
           <Link to={'/registration'}>Sign In</Link>
         )}
