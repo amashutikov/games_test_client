@@ -1,6 +1,8 @@
 import { FetchMethod } from '../types/FetchMethod';
+import { UserData } from '../types/User';
 
 const BASE_URL = 'https://games-server-1qpi.onrender.com';
+// const BASE_URL = 'http://localhost:3006';
 
 export interface ErrorResponse {
   message: string;
@@ -8,6 +10,8 @@ export interface ErrorResponse {
 
 export interface VerifyResponse {
   success: boolean;
+  message: string;
+  user: UserData;
 }
 
 async function request<T>(

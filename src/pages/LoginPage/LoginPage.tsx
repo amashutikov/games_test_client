@@ -1,13 +1,14 @@
 import './LoginPage.scss';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Typography, Button, Box } from '@mui/material';
-import { authClient } from '../../utils/authClient';
+import { authClient } from '../../utils/AuthClient';
 import { Link, useNavigate } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
-import { verify } from '../../helpers/verify';
 import { Loader } from '../../components/Loader/Loader';
+import { verify } from '../../helpers/verify';
+import { useUser } from '../../contexts/UserContext';
 
 const initialValues = {
   email: '',
@@ -20,6 +21,8 @@ export const LoginPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [pageLoading, setPageLoading] = useState(true);
 
+  const { updateUser } = useUser();
+
   const handleVisibilityToggle = (
     setter: React.Dispatch<React.SetStateAction<boolean>>
   ) => setter((prev) => !prev);
@@ -27,7 +30,7 @@ export const LoginPage = () => {
   useEffect(() => {
     const checkVerification = async () => {
       const result = await verify();
-      if (result) {
+      if (typeof result !== 'boolean') {
         navigate('/games');
       } else {
         setPageLoading(false);
@@ -47,8 +50,12 @@ export const LoginPage = () => {
 
     authClient
       .login({ email: values.email, password: values.password })
-      .then(() => {
+      .then((res: any) => {
         localStorage.setItem('successRedirect', 'true');
+        updateUser({
+          email: res.user.email,
+          id: res.user.id,
+        });
         setTimeout(() => setIsSubmiting(false), 500);
 
         navigate('/games');

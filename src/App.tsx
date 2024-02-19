@@ -13,11 +13,34 @@ import { Development } from './components/Development/Development';
 import { GoToTopButton } from './components/GoToTopButton/GoToTopButton';
 import { NewsPage } from './pages/NewsPage/NewsPage';
 import { AllNewsPage } from './pages/AllNewsPage/AllNewsPage';
+import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
+import { useEffect } from 'react';
+import { verify } from './helpers/verify';
+import { useUser } from './contexts/UserContext';
+import { SettingsPage } from './pages/SettingsPage/SettingsPage';
 
 // import { AuthContext } from './components/AuthContext';
 // import { usePageError } from './hooks/usePageError.js';
 
 function App() {
+  const { updateUser } = useUser();
+
+  useEffect(() => {
+    const checkVerification = async () => {
+      const result = await verify();
+      if (typeof result !== 'boolean') {
+        updateUser({
+          email: result.user.email,
+          id: result.user.id,
+        });
+      } else {
+        return;
+      }
+    };
+
+    checkVerification();
+  }, []);
+
   return (
     <>
       <Header />
@@ -36,9 +59,12 @@ function App() {
           <Route path='/development' element={<Development />} />
 
           <Route path='/news' element={<AllNewsPage />} />
+          <Route path='/settings' element={<SettingsPage />} />
           <Route path='/news/:newsId' element={<NewsPage />} />
 
           <Route path='/' element={<HomePage />} />
+
+          <Route path='*' element={<NotFoundPage />} />
         </Routes>
 
         <GoToTopButton />

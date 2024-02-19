@@ -7,3 +7,4 @@ export const getNewsById = (id: string) => {
 export const getNews = (limit: number = 0, offset: number = 0) => {
   return newsClient.post({ limit, offset }, '');
 };
+ 

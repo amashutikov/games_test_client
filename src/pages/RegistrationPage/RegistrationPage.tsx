@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Typography, Button, Box } from '@mui/material';
 import './RegistrationPage.scss';
-import { authClient } from '../../utils/authClient';
+import { authClient } from '../../utils/AuthClient';
 import { Link, useNavigate } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { verify } from '../../helpers/verify';
