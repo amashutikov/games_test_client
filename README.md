@@ -26,7 +26,7 @@ This project is currently in its early stage of development. It's still under ac
 
 ## Project Structure
 - [Client](https://github.com/amashutikov/games_test_client): Contains the frontend code.
-- [Server](https://github.com/amashutikov/games_test_server): Contains the backend code.
+- [Server](https://github.com/amashutikov/games_test_server): Contains the backend code. `Currently private`
 
 ## Getting Started
 To run this project locally, follow these steps:
