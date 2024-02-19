@@ -7,9 +7,12 @@ interface UserContextType {
 }
 
 const initialUserData = {
-  name: '',
+  firstName: '',
+  secondName: '',
   email: '',
   id: '',
+  country: '',
+  image: '',
 };
 
 const defaultValue: UserContextType = {

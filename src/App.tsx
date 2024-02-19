@@ -17,6 +17,7 @@ import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
 import { useEffect } from 'react';
 import { verify } from './helpers/verify';
 import { useUser } from './contexts/UserContext';
+import { SettingsPage } from './pages/SettingsPage/SettingsPage';
 
 // import { AuthContext } from './components/AuthContext';
 // import { usePageError } from './hooks/usePageError.js';
@@ -58,6 +59,7 @@ function App() {
           <Route path='/development' element={<Development />} />
 
           <Route path='/news' element={<AllNewsPage />} />
+          <Route path='/settings' element={<SettingsPage />} />
           <Route path='/news/:newsId' element={<NewsPage />} />
 
           <Route path='/' element={<HomePage />} />

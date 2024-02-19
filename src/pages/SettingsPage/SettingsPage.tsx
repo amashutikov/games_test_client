@@ -4,26 +4,34 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useEffect, useState } from 'react';
 import debounce from 'lodash.debounce';
 import { useUser } from '../../contexts/UserContext';
-import { getUserById } from '../../api/user';
+import { getUserById, updateUserOnServer } from '../../api/user';
+import { Loader } from '../../components/Loader/Loader';
 
 export const SettingsPage = () => {
   const { userData, updateUser } = useUser();
 
   const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [country, setCountry] = useState(userData.country || '');
+  const [country, setCountry] = useState(userData.country);
   const [name, setName] = useState({
-    firstName: userData.firstName || '',
-    secondName: userData.secondName || '',
+    firstName: userData.firstName,
+    secondName: userData.secondName,
   });
   const [hasFetchedUserData, setHasFetchedUserData] = useState(false);
+  const [pageIsLoading, setPageIsLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    setCountry(userData.country);
+    setName({ firstName: userData.firstName, secondName: userData.secondName });
+  }, [userData]);
 
   useEffect(() => {
     if (userData.id && !hasFetchedUserData) {
       getUserById(userData.id)
         .then((res: any) => {
-          console.log(res);
           updateUser({ ...res });
           setHasFetchedUserData(true);
+          setPageIsLoading(false);
         })
         .catch((err) => console.error(err));
     }
@@ -65,8 +73,25 @@ export const SettingsPage = () => {
     setName((prev) => ({ ...prev, secondName: e.target.value }));
   };
 
+  const handleSubmit = () => {
+    setSaving(true);
+    updateUserOnServer(
+      userData.id,
+      name.firstName,
+      name.secondName,
+      country,
+      ''
+    )
+      .then((res) => {
+        updateUser({ ...res });
+        setSaving(false);
+      })
+      .catch((err) => console.error(err));
+  };
+
   return (
     <div className='settings'>
+      {pageIsLoading && <Loader />}
       <div className='settings__container'>
         <h1 className='settings__title'>ACCOUNT SETTINGS</h1>
         <div className='settings__bio'>
@@ -181,6 +206,7 @@ export const SettingsPage = () => {
             type='submit'
             fullWidth
             size='medium'
+            onClick={handleSubmit}
             sx={{
               backgroundColor: '#3f9c13',
               transitionDuration: '1000ms',
@@ -196,7 +222,7 @@ export const SettingsPage = () => {
           >
             {
               // eslint-disable-next-line no-constant-condition
-              true ? <CircularProgress size={20} color='inherit' /> : 'Save'
+              saving ? <CircularProgress size={20} color='inherit' /> : 'Save'
             }
           </Button>
         </div>
