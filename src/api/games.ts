@@ -1,6 +1,19 @@
 import { gamesClient } from '../utils/GamesFetchClient';
 import { client } from '../utils/IGDBFetchClient';
 
+export const searchGames = (search: string) => {
+  const data = `    
+    fields id, name, cover.image_id;
+    search "${search}";
+    limit 5;
+    where summary != null 
+    & category = 0
+    & artworks != null 
+    & themes != (42) 
+    & cover != null;`;
+  return client.get(data, '/games');
+};
+
 export const getGames = async (page: number, genre: string | null) => {
   const gamesIds: number[] = [];
 
