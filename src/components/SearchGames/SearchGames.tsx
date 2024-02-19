@@ -3,6 +3,8 @@ import './SearchGames.scss';
 import { useCallback, useEffect, useState } from 'react';
 import { searchGames } from '../../api/games';
 import debounce from 'lodash.debounce';
+import { useSearchParams } from 'react-router-dom';
+import { GameDetailsModal } from '../GameDetailsModal/GameDetailsModal';
 
 type GameSearch = {
   id: string;
@@ -16,13 +18,20 @@ type GameSearch = {
 export const SearchGames = () => {
   const [searchValue, setSearchValue] = useState('');
   const [dropdownGames, setDropdownGames] = useState<GameSearch[]>([]);
-  const [dropDownIsLoading, setDropdownIsLoading] = useState(false);
+  const [dropDownIsLoading, setDropdownIsLoading] = useState(true);
+  const [noMatches, setNoMatches] = useState(false);
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const debouncedFetch = useCallback(
     debounce((searchValue) => {
-      setDropdownIsLoading(true);
       searchGames(searchValue)
         .then((res) => {
+          if (res.length === 0) {
+            setNoMatches(true);
+          } else {
+            setNoMatches(false);
+          }
           setDropdownGames(res);
           setDropdownIsLoading(false);
         })
@@ -32,15 +41,28 @@ export const SearchGames = () => {
   );
 
   useEffect(() => {
+    setDropdownIsLoading(true);
     debouncedFetch(searchValue);
   }, [searchValue]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
+    if (e.target.value.trim().length === 0) {
+      setDropdownGames([]);
+    }
+  };
+
+  const handleDropdownItemClick = (gameId: number) => {
+    setSearchParams((params) => {
+      const updatedParams = new URLSearchParams(params);
+      updatedParams.set('gameId', String(gameId));
+      return updatedParams;
+    });
   };
 
   return (
     <div className='search'>
+      {searchParams.has('gameId') && <GameDetailsModal />}
       <h4 className='search__title'>Search:</h4>
       <div className='search__container'>
         <input
@@ -54,14 +76,23 @@ export const SearchGames = () => {
         {searchValue.length > 0 && (
           <div className='search__dropdown'>
             {dropDownIsLoading && (
-              <CircularProgress
-                size={20}
-                color='inherit'
-                className='search__dropdown_loader'
-              />
+              <div className='search__dropdown_loader'>
+                <CircularProgress size={20} color='inherit' />
+              </div>
+            )}
+            {noMatches && !dropDownIsLoading && (
+              <div className='search__dropdown_item'>
+                <span className='search__dropdown_text'>
+                  No games matching your query
+                </span>
+              </div>
             )}
             {dropdownGames.map((game) => (
-              <div className='search__dropdown_item' key={game.id}>
+              <div
+                className='search__dropdown_item'
+                key={game.id}
+                onClick={() => handleDropdownItemClick(Number(game.id))}
+              >
                 <img
                   className='search__dropdown_image'
                   alt='game image'

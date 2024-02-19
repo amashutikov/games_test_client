@@ -5,7 +5,7 @@ export const searchGames = (search: string) => {
   const data = `    
     fields id, name, cover.image_id;
     search "${search}";
-    limit 5;
+    limit 50;
     where summary != null 
     & category = 0
     & artworks != null 
