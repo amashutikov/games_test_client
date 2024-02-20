@@ -2,7 +2,12 @@ import { useState, useEffect } from 'react';
 import './GamesPage.scss';
 import { CardList } from '../../components/CardList/CardList';
 import { GenreSelect } from '../../components/GenreSelect/GenreSelect';
-import { getAmountOfGames, getGames } from '../../api/games';
+import {
+  getAmountOfGames,
+  getAmountOfSearchedGames,
+  getGames,
+  getSearchedGames,
+} from '../../api/games';
 import { useDispatch } from 'react-redux';
 import { actions as gamesToShowActions } from '../../store/gamesToShow';
 import { Loader } from '../../components/Loader/Loader';
@@ -12,6 +17,7 @@ import { Pagination } from '../../components/Pagination/Pagination';
 import { getGenres } from '../../api/genres';
 import { Genre } from '../../types/Genre';
 import { getGenreId } from '../../helpers/getGenreId';
+import { SearchGames } from '../../components/SearchGames/SearchGames';
 
 export const GamesPage = () => {
   const [searchParams] = useSearchParams();
@@ -21,6 +27,7 @@ export const GamesPage = () => {
   );
   const [pageLoading, setPageLoading] = useState(true);
   const [genre, setGenre] = useState(searchParams.get('gameGenre') || null);
+  const [search, setSearch] = useState(searchParams.get('search') || null);
   const [gamesCount, setGamesCount] = useState(0);
   const [genres, setGenres] = useState<Genre[] | undefined>(undefined);
 
@@ -30,6 +37,8 @@ export const GamesPage = () => {
     if (Number(searchParams.get('page')) !== page) {
       setPage(searchParams.get('page') ? Number(searchParams.get('page')) : 1);
     }
+
+    setSearch(searchParams.get('search') || null);
   }, [searchParams]);
 
   useEffect(() => {
@@ -56,11 +65,26 @@ export const GamesPage = () => {
 
     const genreId = String(getGenreId(genre, genres));
 
+    if (search) {
+      getSearchedGames(search, page).then((res) => {
+        dispatch(gamesToShowActions.replace(res));
+        setPageLoading(false);
+      });
+
+      getAmountOfSearchedGames(search, page).then((res) => {
+        setGamesCount(Number(res.count));
+      });
+
+      return;
+    }
+
     getGames(page, genreId).then((res) => {
       dispatch(gamesToShowActions.replace(res));
       setPageLoading(false);
     });
-  }, [page, genre]);
+
+    getAmountOfGames(page, genreId).then((res) => setGamesCount(Number(res)));
+  }, [page, genre, search]);
 
   useEffect(() => {
     const genreId = String(getGenreId(genre, genres));
@@ -77,7 +101,11 @@ export const GamesPage = () => {
       {pageLoading && <Loader />}
       <h1 className='games_page__title'>All games</h1>
 
-      <GenreSelect onGenreChange={handleGenreChange} genres={genres} />
+      <SearchGames />
+
+      {!!searchParams.get('search') || (
+        <GenreSelect onGenreChange={handleGenreChange} genres={genres} />
+      )}
 
       <CardList />
 

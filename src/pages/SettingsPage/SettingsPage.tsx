@@ -1,7 +1,7 @@
 import './SettingsPage.scss';
 import { Button } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import debounce from 'lodash.debounce';
 import { useUser } from '../../contexts/UserContext';
 import { getUserById, updateUserOnServer } from '../../api/user';
@@ -37,24 +37,29 @@ export const SettingsPage = () => {
     }
   }, [userData, hasFetchedUserData]);
 
-  const debouncedFetch = debounce((inputValue) => {
-    fetch(`https://restcountries.com/v3.1/name/${inputValue}?fields=name,flag`)
-      .then((res) => {
-        if (!res.ok) {
-          console.error('Network response was not ok');
-          throw new Error('Network response was not ok');
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setSuggestions(
-          data.map((country: any) => country.flag + country.name.common)
-        );
-      })
-      .catch((err) => {
-        console.error('Fetch error:', err);
-      });
-  }, 500);
+  const debouncedFetch = useCallback(
+    debounce((inputValue) => {
+      fetch(
+        `https://restcountries.com/v3.1/name/${inputValue}?fields=name,flag`
+      )
+        .then((res) => {
+          if (!res.ok) {
+            console.error('Network response was not ok');
+            throw new Error('Network response was not ok');
+          }
+          return res.json();
+        })
+        .then((data) => {
+          setSuggestions(
+            data.map((country: any) => country.flag + country.name.common)
+          );
+        })
+        .catch((err) => {
+          console.error('Fetch error:', err);
+        });
+    }, 500),
+    []
+  );
 
   const handleCountryFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
@@ -220,10 +225,7 @@ export const SettingsPage = () => {
               },
             }}
           >
-            {
-              // eslint-disable-next-line no-constant-condition
-              saving ? <CircularProgress size={20} color='inherit' /> : 'Save'
-            }
+            {saving ? <CircularProgress size={20} color='inherit' /> : 'Save'}
           </Button>
         </div>
       </div>

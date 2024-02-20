@@ -1,6 +1,41 @@
 import { gamesClient } from '../utils/GamesFetchClient';
 import { client } from '../utils/IGDBFetchClient';
 
+export const searchGames = (search: string) => {
+  const data = `    
+    fields id, name, cover.image_id;
+    search "${search}";
+    limit 50;
+    where summary != null 
+    & category = 0
+    & artworks != null 
+    & themes != (42) 
+    & cover != null;`;
+  return client.get(data, '/games');
+};
+
+export const getSearchedGames = (
+  search: string,
+  page: number,
+  endpoint: string = ''
+) => {
+  const data = `    
+  fields name, summary, id, slug, artworks.*, cover.*;
+  limit 24;
+  offset ${(page - 1) * 24};
+  search "${search}";
+  where summary != null 
+  & category = 0
+  & artworks != null 
+  & themes != (42) 
+  & cover != null;`;
+  return client.get(data, '/games' + endpoint);
+};
+
+export const getAmountOfSearchedGames = (search: string, page: number) => {
+  return getSearchedGames(search, page, '/count');
+};
+
 export const getGames = async (page: number, genre: string | null) => {
   const gamesIds: number[] = [];
 
