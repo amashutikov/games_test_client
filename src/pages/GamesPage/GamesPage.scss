@@ -3,6 +3,7 @@
   padding: 20px;
   width: 100%;
   display: flex;
+  gap: 20px;
   flex-direction: column;
   margin-bottom: 60px;
 
@@ -12,7 +13,7 @@
     color: #eaeaea;
     font-weight: 900;
     font-size: 48px;
-    margin-bottom: 42px;
+    margin-bottom: 12px;
   }
 
   &__button {

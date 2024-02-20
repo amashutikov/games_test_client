@@ -4,6 +4,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { searchGames } from '../../api/games';
 import debounce from 'lodash.debounce';
 import { useSearchParams } from 'react-router-dom';
+import ClearIcon from '@mui/icons-material/Clear';
+import SearchIcon from '@mui/icons-material/Search';
 import { GameDetailsModal } from '../GameDetailsModal/GameDetailsModal';
 
 type GameSearch = {
@@ -60,6 +62,26 @@ export const SearchGames = () => {
     });
   };
 
+  const handleClearSearch = () => {
+    setSearchValue('');
+    searchParams.delete('search');
+    setSearchParams(searchParams);
+  };
+
+  const handleSearchSubmit = () => {
+    if (searchValue.length === 0) {
+      searchParams.delete('search');
+      setSearchParams(searchParams);
+      return;
+    }
+
+    setSearchParams((params) => {
+      const updatedParams = new URLSearchParams(params);
+      updatedParams.set('search', searchValue);
+      return updatedParams;
+    });
+  };
+
   return (
     <div className='search'>
       {searchParams.has('gameId') && <GameDetailsModal />}
@@ -72,6 +94,32 @@ export const SearchGames = () => {
           placeholder={'Start typing'}
           value={searchValue}
           onChange={handleInputChange}
+          onKeyUp={(e) => e.key === 'Enter' && handleSearchSubmit()}
+        />
+        {searchValue.length > 0 && (
+          <ClearIcon
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              right: '20px',
+              color: 'inherit',
+              cursor: 'pointer',
+            }}
+            onClick={handleClearSearch}
+          />
+        )}
+
+        <SearchIcon
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            left: '10px',
+            color: 'inherit',
+            cursor: 'pointer',
+          }}
+          onClick={handleSearchSubmit}
         />
         {searchValue.length > 0 && (
           <div className='search__dropdown'>
