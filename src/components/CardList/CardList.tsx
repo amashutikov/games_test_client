@@ -21,6 +21,8 @@ export const CardList = () => {
     });
   };
 
+  console.log(gamesToShow)
+
   return (
     <ul className='list'>
       {searchParams.has('gameId') && <GameDetailsModal />}
