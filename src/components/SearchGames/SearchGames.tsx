@@ -18,12 +18,15 @@ type GameSearch = {
 };
 
 export const SearchGames = () => {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [searchValue, setSearchValue] = useState(
+    searchParams.get('search') || ''
+  );
   const [dropdownGames, setDropdownGames] = useState<GameSearch[]>([]);
   const [dropDownIsLoading, setDropdownIsLoading] = useState(true);
   const [noMatches, setNoMatches] = useState(false);
-
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [dropdownIsVisible, setDropdownIsVisible] = useState(false);
 
   const debouncedFetch = useCallback(
     debounce((searchValue) => {
@@ -49,8 +52,11 @@ export const SearchGames = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
+    setDropdownIsVisible(true);
+
     if (e.target.value.trim().length === 0) {
       setDropdownGames([]);
+      setDropdownIsVisible(false);
     }
   };
 
@@ -65,13 +71,16 @@ export const SearchGames = () => {
   const handleClearSearch = () => {
     setSearchValue('');
     searchParams.delete('search');
+    searchParams.delete('page');
     setSearchParams(searchParams);
+    setDropdownIsVisible(false);
   };
 
   const handleSearchSubmit = () => {
     if (searchValue.length === 0) {
       searchParams.delete('search');
       setSearchParams(searchParams);
+      setDropdownIsVisible(false);
       return;
     }
 
@@ -80,6 +89,7 @@ export const SearchGames = () => {
       updatedParams.set('search', searchValue);
       return updatedParams;
     });
+    setDropdownIsVisible(false);
   };
 
   return (
@@ -121,7 +131,7 @@ export const SearchGames = () => {
           }}
           onClick={handleSearchSubmit}
         />
-        {searchValue.length > 0 && (
+        {dropdownIsVisible && (
           <div className='search__dropdown'>
             {dropDownIsLoading && (
               <div className='search__dropdown_loader'>

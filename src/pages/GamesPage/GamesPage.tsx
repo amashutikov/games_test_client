@@ -103,7 +103,9 @@ export const GamesPage = () => {
 
       <SearchGames />
 
-      <GenreSelect onGenreChange={handleGenreChange} genres={genres} />
+      {!!searchParams.get('search') || (
+        <GenreSelect onGenreChange={handleGenreChange} genres={genres} />
+      )}
 
       <CardList />
 
