@@ -13,3 +13,11 @@ export const updateUserOnServer = (
 ) => {
   return userClient.patch({ id, firstName, secondName, country, image }, '/');
 };
+
+export const addLikedGame = (id: string, gameId: string) => {
+  return userClient.patch({ id, gameId }, '/like');
+};
+
+export const removeLikedGame = (id: string, gameId: string) => {
+  return userClient.patch({ id, gameId }, '/dislike');
+};

@@ -5,6 +5,24 @@
   border-radius: 20px;
   background-color: #1c1c1c;
   cursor: pointer;
+  position: relative;
+
+  &__icon {
+    position: absolute;
+    right: 10px;
+    bottom: 40%;
+    color: red;
+
+    cursor: pointer;
+
+    &.white {
+      color: white;
+    }
+    
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 
   &:hover {
     background-color: #242424;

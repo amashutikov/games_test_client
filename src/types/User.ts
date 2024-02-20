@@ -5,4 +5,5 @@ export interface UserData {
   secondName?: string;
   country?: string;
   image?: string;
+  likedGames?: string[];
 }
