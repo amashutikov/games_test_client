@@ -18,9 +18,7 @@ import { useEffect } from 'react';
 import { verify } from './helpers/verify';
 import { useUser } from './contexts/UserContext';
 import { SettingsPage } from './pages/SettingsPage/SettingsPage';
-
-// import { AuthContext } from './components/AuthContext';
-// import { usePageError } from './hooks/usePageError.js';
+import { getUserById } from './api/user';
 
 function App() {
   const { updateUser } = useUser();
@@ -29,10 +27,11 @@ function App() {
     const checkVerification = async () => {
       const result = await verify();
       if (typeof result !== 'boolean') {
-        updateUser({
-          email: result.user.email,
-          id: result.user.id,
-        });
+        getUserById(result.userId)
+          .then((res) => {
+            updateUser({ ...res });
+          })
+          .catch((err) => console.error(err));
       } else {
         return;
       }
