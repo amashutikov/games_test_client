@@ -64,6 +64,7 @@
     ]
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/jwt-decode": "^3.1.0",
     "@types/lodash.debounce": "^4.0.9",
     "@types/react-image-gallery": "^1.2.4",

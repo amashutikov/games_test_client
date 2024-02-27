@@ -18,7 +18,7 @@ async function request<T>(
   method: FetchMethod,
   data: any,
   credentials: boolean
-): Promise<T> {
+): Promise<T | boolean> {
   const options: any = { method };
 
   if (data) {
@@ -35,6 +35,10 @@ async function request<T>(
   const response = await fetch(BASE_URL + url, options);
 
   let responseBody: T;
+
+  if (response.status === 204) {
+    return true;
+  }
 
   try {
     const contentType = response.headers.get('content-type');
@@ -61,6 +65,6 @@ export const authClient = {
   activate: (activationToken: any) =>
     request(`/activation/${activationToken}`, 'GET', false, true),
   login: (data: any) => request('/login', 'POST', data, true),
-  logout: () => request('/logout', 'POST', {}, true),
+  logout: () => request<undefined>('/logout', 'POST', {}, true),
   verify: () => request<VerifyResponse>('/verify', 'GET', false, true),
 };

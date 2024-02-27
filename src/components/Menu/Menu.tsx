@@ -9,15 +9,16 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useUser } from '../../contexts/UserContext';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { initialUserData, useUser } from '../../contexts/UserContext';
+import { authClient } from '../../utils/AuthClient';
 
 export const Menu = () => {
-  const { userData } = useUser();
+  const { userData, updateUser } = useUser();
 
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const [logged] = useState(true);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [isOpenClass, setIsOpenClass] = useState(false);
 
@@ -47,6 +48,16 @@ export const Menu = () => {
     setMenuIsOpen(true);
 
     setTimeout(() => setIsOpenClass(true));
+  };
+
+  const handleLogout = () => {
+    authClient
+      .logout()
+      .then(() => {
+        updateUser(initialUserData);
+        navigate('/');
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -93,7 +104,7 @@ export const Menu = () => {
 
           <div className='menu__container_underline'></div>
 
-          {userData.id ? (
+          {userData.logged ? (
             <>
               <Link to={'/favorites'} className='menu__container_link'>
                 <div
@@ -135,11 +146,11 @@ export const Menu = () => {
             </>
           )}
 
-          {logged && (
+          {userData.logged && (
             <>
               <div className='menu__container_underline'></div>
 
-              <div className='menu__container_item'>
+              <div className='menu__container_item' onClick={handleLogout}>
                 <LogoutIcon />
                 <h5>Log Out</h5>
               </div>

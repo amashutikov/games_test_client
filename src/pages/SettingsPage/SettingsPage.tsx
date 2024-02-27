@@ -6,9 +6,13 @@ import debounce from 'lodash.debounce';
 import { useUser } from '../../contexts/UserContext';
 import { getUserById, updateUserOnServer } from '../../api/user';
 import { Loader } from '../../components/Loader/Loader';
+import { verify } from '../../helpers/verify';
+import { useNavigate } from 'react-router-dom';
 
 export const SettingsPage = () => {
   const { userData, updateUser } = useUser();
+
+  const navigate = useNavigate();
 
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [country, setCountry] = useState(userData.country);
@@ -19,6 +23,19 @@ export const SettingsPage = () => {
   const [hasFetchedUserData, setHasFetchedUserData] = useState(false);
   const [pageIsLoading, setPageIsLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    const checkVerification = async () => {
+      const result = await verify();
+      if (!result) {
+        navigate('/registration');
+      } else {
+        return;
+      }
+    };
+
+    checkVerification();
+  }, []);
 
   useEffect(() => {
     setCountry(userData.country);
@@ -106,7 +123,11 @@ export const SettingsPage = () => {
             className='settings__bio_image'
           />
           <div>
-            <h2 className='settings__bio_name'>Firstname Secondname</h2>
+            <h2 className='settings__bio_name'>
+              {userData.firstName || userData.secondName
+                ? userData.firstName + ' ' + userData.secondName
+                : 'Your name'}
+            </h2>
             <div className='settings__bio_container'>
               <Button
                 variant='contained'

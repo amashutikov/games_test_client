@@ -6,13 +6,14 @@ interface UserContextType {
   updateUser: (partialUserData: Partial<UserData>) => void;
 }
 
-const initialUserData = {
+export const initialUserData = {
   firstName: '',
   secondName: '',
   email: '',
   id: '',
   country: '',
   image: '',
+  logged: false
 };
 
 const defaultValue: UserContextType = {

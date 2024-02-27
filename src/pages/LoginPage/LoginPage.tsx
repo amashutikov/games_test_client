@@ -51,10 +51,9 @@ export const LoginPage = () => {
     authClient
       .login({ email: values.email, password: values.password })
       .then((res: any) => {
-        localStorage.setItem('successRedirect', 'true');
         updateUser({
-          email: res.user.email,
-          id: res.user.id,
+          ...res.user,
+          logged: true,
         });
         setTimeout(() => setIsSubmiting(false), 500);
 
@@ -92,7 +91,7 @@ export const LoginPage = () => {
             mb={2}
             sx={{ fontFamily: 'inherit' }}
           >
-            Sign in
+            Log in
           </Typography>
 
           <div className='login_page__wrapper'>

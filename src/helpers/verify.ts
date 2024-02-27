@@ -2,7 +2,7 @@ import { authClient, VerifyResponse, ErrorResponse } from '../utils/AuthClient';
 
 export const verify = async (): Promise<VerifyResponse | boolean> => {
   try {
-    const res: VerifyResponse = await authClient.verify();
+    const res: VerifyResponse | boolean = await authClient.verify();
     return res;
   } catch (error) {
     if (isErrorResponse(error)) {

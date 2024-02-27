@@ -11,8 +11,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { actions as gamesToShowActions } from '../../store/gamesToShow';
 import { Loader } from '../../components/Loader/Loader';
-import { verify } from '../../helpers/verify';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Pagination } from '../../components/Pagination/Pagination';
 import { getGenres } from '../../api/genres';
 import { Genre } from '../../types/Genre';
@@ -31,8 +30,6 @@ export const GamesPage = () => {
   const [gamesCount, setGamesCount] = useState(0);
   const [genres, setGenres] = useState<Genre[] | undefined>(undefined);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     if (Number(searchParams.get('page')) !== page) {
       setPage(searchParams.get('page') ? Number(searchParams.get('page')) : 1);
@@ -42,17 +39,6 @@ export const GamesPage = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    const checkVerification = async () => {
-      const result = await verify();
-      if (!result) {
-        navigate('/registration');
-      } else {
-        return;
-      }
-    };
-
-    checkVerification();
-
     getGenres().then((res) => {
       setGenres(res);
     });
