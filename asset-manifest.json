@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/games_test_client/static/css/main.96efc4af.css",
-    "main.js": "/games_test_client/static/js/main.d803ae4d.js",
+    "main.css": "/games_test_client/static/css/main.ef8ca242.css",
+    "main.js": "/games_test_client/static/js/main.21037e19.js",
     "static/js/787.d138b5f8.chunk.js": "/games_test_client/static/js/787.d138b5f8.chunk.js",
     "static/media/NeueMachina-Black.eot": "/games_test_client/static/media/NeueMachina-Black.e80dfe8ab92b9140abf5.eot",
     "static/media/NeueMachina-Black.ttf": "/games_test_client/static/media/NeueMachina-Black.014654455cfb26c46c76.ttf",
@@ -32,12 +32,12 @@
     "static/media/NeueMachina-Ultrabold.woff2": "/games_test_client/static/media/NeueMachina-Ultrabold.5310e4a5401b5d25eeba.woff2",
     "static/media/NeueMachina-Light.woff2": "/games_test_client/static/media/NeueMachina-Light.418f63ac88af6ed51de9.woff2",
     "index.html": "/games_test_client/index.html",
-    "main.96efc4af.css.map": "/games_test_client/static/css/main.96efc4af.css.map",
-    "main.d803ae4d.js.map": "/games_test_client/static/js/main.d803ae4d.js.map",
+    "main.ef8ca242.css.map": "/games_test_client/static/css/main.ef8ca242.css.map",
+    "main.21037e19.js.map": "/games_test_client/static/js/main.21037e19.js.map",
     "787.d138b5f8.chunk.js.map": "/games_test_client/static/js/787.d138b5f8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.96efc4af.css",
-    "static/js/main.d803ae4d.js"
+    "static/css/main.ef8ca242.css",
+    "static/js/main.21037e19.js"
   ]
 }
