@@ -18,7 +18,9 @@ async function request<T>(
   method: FetchMethod,
   data: any,
   credentials: boolean
+
 ): Promise<T | boolean> {
+
   const options: any = { method };
 
   if (data) {
