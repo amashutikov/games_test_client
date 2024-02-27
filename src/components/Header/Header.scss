@@ -36,11 +36,7 @@
     gap: 5px;
 
     transition-duration: 500ms;
-
-    &:hover {
-      cursor: pointer;
-      transform: scale(105%);
-    }
+    cursor: pointer;
   }
 
   &__actions {

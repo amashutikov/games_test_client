@@ -1,12 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Logo } from '../Logo/Logo';
 import './Header.scss';
-import { VscMenu, VscAccount } from 'react-icons/vsc';
-import { useUser } from '../../contexts/UserContext';
+import { VscMenu } from 'react-icons/vsc';
+import { Menu } from '../Menu/Menu';
 
 export const Header = () => {
   const location = useLocation();
-  const { userData } = useUser();
 
   return (
     <div className='header'>
@@ -45,15 +44,7 @@ export const Header = () => {
       </div>
 
       <div className='header__authorization '>
-        {/* add header__authorization-authorized class if the user is authorized */}
-        <VscAccount color='white' size={20} />
-        {userData.email ? (
-          <Link to={'/settings'}>
-            {userData.firstName || userData.secondName || userData.email}
-          </Link>
-        ) : (
-          <Link to={'/registration'}>Sign In</Link>
-        )}
+        <Menu />
       </div>
     </div>
   );

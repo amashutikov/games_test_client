@@ -6,4 +6,5 @@ export interface UserData {
   country?: string;
   image?: string;
   likedGames?: string[];
+  logged: boolean;
 }

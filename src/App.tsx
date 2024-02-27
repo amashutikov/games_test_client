@@ -29,7 +29,7 @@ function App() {
       if (typeof result !== 'boolean') {
         getUserById(result.userId)
           .then((res) => {
-            updateUser({ ...res });
+            updateUser({ ...res, logged: true });
           })
           .catch((err) => console.error(err));
       } else {

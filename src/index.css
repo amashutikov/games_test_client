@@ -1,4 +1,4 @@
-@import url(./fonts/stylesheet.css); 
+@import url(./fonts/stylesheet.css);
 @import url(./styles/reset.css);
 
 body {
@@ -12,6 +12,10 @@ body {
 
 .modal-open {
   overflow: hidden;
+}
+
+.menu-open {
+  overflow-x: hidden;
 }
 
 .loader-open {
