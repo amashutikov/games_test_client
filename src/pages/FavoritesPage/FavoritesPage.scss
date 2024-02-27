@@ -1,0 +1,15 @@
+.favorites {
+  box-sizing: border-box;
+  max-width: 1170px;
+  padding: 20px;
+  width: 100%;
+
+  min-height: calc(100vh - 150px);
+
+  &__title {
+    color: #eaeaea;
+    font-weight: 900;
+    font-size: 48px;
+    margin-bottom: 12px;
+  }
+}

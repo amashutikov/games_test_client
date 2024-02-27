@@ -19,6 +19,7 @@ import { verify } from './helpers/verify';
 import { useUser } from './contexts/UserContext';
 import { SettingsPage } from './pages/SettingsPage/SettingsPage';
 import { getUserById } from './api/user';
+import { FavoritesPage } from './pages/FavoritesPage/FavoritesPage';
 
 function App() {
   const { updateUser } = useUser();
@@ -56,6 +57,8 @@ function App() {
           <Route path='/games' element={<GamesPage />} />
 
           <Route path='/development' element={<Development />} />
+
+          <Route path='/favorites' element={<FavoritesPage />} />
 
           <Route path='/news' element={<AllNewsPage />} />
           <Route path='/settings' element={<SettingsPage />} />

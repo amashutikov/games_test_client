@@ -55,7 +55,10 @@ export const Menu = () => {
       .logout()
       .then(() => {
         updateUser(initialUserData);
-        navigate('/');
+
+        if (location.pathname === '/settings') {
+          navigate('/');
+        }
       })
       .catch((err) => console.error(err));
   };
