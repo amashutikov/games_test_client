@@ -3,7 +3,7 @@ import ImageGallery from 'react-image-gallery';
 import { getTitleImages } from '../../helpers/getTitleImages';
 import { PreparedImages } from '../../types/PreparedImages';
 import { CardCarousel } from '../../components/CardCarousel/CardCarousel';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Loader } from '../../components/Loader/Loader';
 import { GameDetailsModal } from '../../components/GameDetailsModal/GameDetailsModal';
 import { useSearchParams } from 'react-router-dom';
@@ -21,9 +21,9 @@ export const HomePage = () => {
 
   const [pageIsLoading, setPageIsLoading] = useState(true);
 
-  const handleLoadingToggle = () => {
-    setPageIsLoading((prev) => !prev);
-  };
+  useEffect(() => {
+    setTimeout(() => setPageIsLoading(false), 500);
+  }, []);
 
   return (
     <div className='home_page'>
@@ -51,15 +51,17 @@ export const HomePage = () => {
         />
       </div>
 
-      <h2 className='home_page__subtitle'>Recent gaming news</h2>
-
       <div className='home_page__news'>
+        <h2 className='home_page__subtitle'>Recent gaming news</h2>
+
         <NewsSection />
       </div>
 
-      <h2 className='home_page__subtitle'>Top games</h2>
+      <div className='home_page__carousel'>
+        <h2 className='home_page__subtitle'>Top games</h2>
 
-      <CardCarousel loadingToggle={handleLoadingToggle} />
+        <CardCarousel />
+      </div>
 
       {searchParams.has('gameId') && <GameDetailsModal />}
     </div>

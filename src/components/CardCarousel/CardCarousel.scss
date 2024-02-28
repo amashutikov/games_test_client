@@ -1,8 +1,19 @@
 .carousel {
   display: flex;
   flex-direction: column;
+  height: 100%;
 
-  margin-bottom: 40px;
+  &__loader {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   &__container {
     position: relative;
@@ -22,8 +33,6 @@
   }
 
   &__card_container {
-    top: 0;
-    left: 0;
     margin-left: 20px;
     margin-right: 20px;
 
