@@ -6,6 +6,16 @@
   display: flex;
   flex-direction: column;
 
+  &__carousel {
+    position: relative;
+
+    background-color: rgba($color: black, $alpha: 0.2);
+    padding: 20px;
+    min-height: 660px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+  }
+
   &__gallery {
     margin-bottom: 80px;
   }

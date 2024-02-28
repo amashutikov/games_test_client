@@ -7,22 +7,20 @@ import { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { getTopGames } from '../../api/games';
 import { Game } from '../../types/Game';
+import { Oval } from 'react-loader-spinner';
 
-type Props = {
-  loadingToggle: () => void;
-};
-
-export const CardCarousel: React.FC<Props> = ({ loadingToggle }) => {
+export const CardCarousel = () => {
   const [, setSearchParams] = useSearchParams();
   const [carouselPosition, setCarouselPosition] = useState(0);
   const [games, setGames] = useState<Game[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const totalCards = 24; // Adjust this to the total number of cards
 
   useEffect(() => {
     getTopGames(totalCards).then((res) => {
       setGames(res);
-      loadingToggle();
+      setLoading(false);
     });
   }, []);
 
@@ -56,15 +54,33 @@ export const CardCarousel: React.FC<Props> = ({ loadingToggle }) => {
     navigate('/games');
   };
 
-  return games.length > 0 ? (
+  return (
     <div className='carousel'>
-      <div className='carousel__container'>
-        <div
-          onClick={() => handleArrowClick('left')}
-          className={`carousel__left ${carouselPosition === 0 && 'disabled'}`}
-        >
-          <ChevronLeftIcon />
+      {loading && (
+        <div className='carousel__loader'>
+          <Oval
+            height={50}
+            width={50}
+            color='#4fa94d'
+            visible={true}
+            ariaLabel='oval-loading'
+            secondaryColor='#4fa94d'
+            strokeWidth={2}
+            strokeWidthSecondary={2}
+          />
         </div>
+      )}
+
+      <div className='carousel__container'>
+        {loading || (
+          <div
+            onClick={() => handleArrowClick('left')}
+            className={`carousel__left ${carouselPosition === 0 && 'disabled'}`}
+          >
+            <ChevronLeftIcon />
+          </div>
+        )}
+
         <div className='carousel__card_container'>
           <div
             className='carousel__slide'
@@ -77,36 +93,40 @@ export const CardCarousel: React.FC<Props> = ({ loadingToggle }) => {
             ))}
           </div>
         </div>
-        <div
-          className={`carousel__right ${
-            carouselPosition <= (totalCards - 3) * -312 ? 'disabled' : ''
-          }`}
-          onClick={() => handleArrowClick('right')}
-        >
-          <ChevronRightIcon />
-        </div>
+        {loading || (
+          <div
+            className={`carousel__right ${
+              carouselPosition <= (totalCards - 3) * -312 ? 'disabled' : ''
+            }`}
+            onClick={() => handleArrowClick('right')}
+          >
+            <ChevronRightIcon />
+          </div>
+        )}
       </div>
-      <Button
-        variant='contained'
-        type='submit'
-        fullWidth
-        size='medium'
-        onClick={handleShowAllClick}
-        sx={{
-          backgroundColor: '#3f9c13',
-          transitionDuration: '1000ms',
-          fontFamily: 'inherit',
-          maxWidth: '200px',
-          height: '40px',
-          '&:hover': {
-            transform: 'scale(100.5%)',
+      {loading || (
+        <Button
+          variant='contained'
+          type='submit'
+          fullWidth
+          size='medium'
+          onClick={handleShowAllClick}
+          sx={{
             backgroundColor: '#3f9c13',
-          },
-          alignSelf: 'center',
-        }}
-      >
-        Show all
-      </Button>
+            transitionDuration: '1000ms',
+            fontFamily: 'inherit',
+            maxWidth: '200px',
+            height: '40px',
+            '&:hover': {
+              transform: 'scale(100.5%)',
+              backgroundColor: '#3f9c13',
+            },
+            alignSelf: 'center',
+          }}
+        >
+          Show all
+        </Button>
+      )}
     </div>
-  ) : null;
+  );
 };
