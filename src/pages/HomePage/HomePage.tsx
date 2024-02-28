@@ -19,10 +19,10 @@ export const HomePage = () => {
     'ar2d8r',
   ]);
 
-  const [pageIsLoading, setPageIsLoading] = useState(true);
+  const [pageIsLoading, setPageIsLoading] = useState(false);
 
   const handleLoadingToggle = () => {
-    setPageIsLoading((prev) => !prev);
+    setPageIsLoading(false);
   };
 
   return (
@@ -50,10 +50,10 @@ export const HomePage = () => {
           lazyLoad={true}
         />
       </div>
-
-      <h2 className='home_page__subtitle'>Recent gaming news</h2>
-
+      
       <div className='home_page__news'>
+        <h2 className='home_page__subtitle'>Recent gaming news</h2>
+
         <NewsSection />
       </div>
 
