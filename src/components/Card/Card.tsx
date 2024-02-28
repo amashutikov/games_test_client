@@ -1,5 +1,6 @@
 import { Game } from '../../types/Game';
 import './Card.scss';
+import { Oval } from 'react-loader-spinner';
 import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
@@ -17,6 +18,7 @@ const BASE_IMAGE_SRC = 'https://images.igdb.com/igdb/image/upload/t_720p/';
 
 export const Card: React.FC<Props> = ({ game, onClick, liked = false }) => {
   const [hovered, setHovered] = useState(false);
+  const [cardLoading, setCardLoading] = useState(false);
 
   const { userData, updateUser } = useUser();
 
@@ -24,9 +26,13 @@ export const Card: React.FC<Props> = ({ game, onClick, liked = false }) => {
     e: React.MouseEvent<SVGSVGElement, MouseEvent>
   ) => {
     e.stopPropagation();
+    setCardLoading(true);
 
     addLikedGame(userData.id, String(game.id))
-      .then((res) => updateUser({ ...res }))
+      .then((res) => {
+        updateUser({ ...res });
+        setCardLoading(false);
+      })
       .catch((err) => console.error(err));
   };
 
@@ -34,9 +40,13 @@ export const Card: React.FC<Props> = ({ game, onClick, liked = false }) => {
     e: React.MouseEvent<SVGSVGElement, MouseEvent>
   ) => {
     e.stopPropagation();
+    setCardLoading(true);
 
     removeLikedGame(userData.id, String(game.id))
-      .then((res) => updateUser({ ...res }))
+      .then((res) => {
+        updateUser({ ...res });
+        setCardLoading(false);
+      })
       .catch((err) => console.error(err));
   };
 
@@ -46,6 +56,20 @@ export const Card: React.FC<Props> = ({ game, onClick, liked = false }) => {
       onClick={() => onClick(game.id)}
       onTouchEnd={() => onClick(game.id)}
     >
+      {cardLoading && (
+        <div className='card__loader'>
+          <Oval
+            height={50}
+            width={50}
+            color='#4fa94d'
+            visible={true}
+            ariaLabel='oval-loading'
+            secondaryColor='#4fa94d'
+            strokeWidth={2}
+            strokeWidthSecondary={2}
+          />
+        </div>
+      )}
       <img
         src={`${BASE_IMAGE_SRC + game.cover.image_id}.jpg`}
         className='card_image'
