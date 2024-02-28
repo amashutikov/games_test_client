@@ -13,7 +13,8 @@ export const initialUserData = {
   id: '',
   country: '',
   image: '',
-  logged: false
+  logged: false,
+  likedGames: [],
 };
 
 const defaultValue: UserContextType = {

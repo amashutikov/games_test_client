@@ -71,6 +71,14 @@ export const getTopGames = async (numberOfGames: number) => {
   );
 };
 
+export const getFavoriteGames = async (favoriteGames: string[]) => {
+  return client.get(
+    `fields name, summary, id, slug, artworks.*, cover.*;
+        where id = (${favoriteGames.join(',')});`,
+    '/games'
+  );
+};
+
 export const getTopRatedGames = () => {
   const data = `
     fields name, summary, id, slug, artworks.*, cover.*;

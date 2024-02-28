@@ -5,6 +5,6 @@ export interface UserData {
   secondName?: string;
   country?: string;
   image?: string;
-  likedGames?: string[];
+  likedGames: string[];
   logged: boolean;
 }

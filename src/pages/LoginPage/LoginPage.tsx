@@ -4,7 +4,7 @@ import { Typography, Button, Box } from '@mui/material';
 import { authClient } from '../../utils/AuthClient';
 import { Link, useNavigate } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { Loader } from '../../components/Loader/Loader';
 import { verify } from '../../helpers/verify';
@@ -59,7 +59,7 @@ export const LoginPage = () => {
 
         navigate('/games');
       })
-      .catch((err) => {
+      .catch((err: { message: SetStateAction<string> }) => {
         console.log(err.message);
         setTimeout(() => {
           setIsSubmiting(false);

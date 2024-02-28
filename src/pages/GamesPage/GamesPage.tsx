@@ -8,7 +8,7 @@ import {
   getGames,
   getSearchedGames,
 } from '../../api/games';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { actions as gamesToShowActions } from '../../store/gamesToShow';
 import { Loader } from '../../components/Loader/Loader';
 import { useSearchParams } from 'react-router-dom';
@@ -17,6 +17,8 @@ import { getGenres } from '../../api/genres';
 import { Genre } from '../../types/Genre';
 import { getGenreId } from '../../helpers/getGenreId';
 import { SearchGames } from '../../components/SearchGames/SearchGames';
+import { Game } from '../../types/Game';
+import { RootState } from '../../types/RootState';
 
 export const GamesPage = () => {
   const [searchParams] = useSearchParams();
@@ -29,6 +31,10 @@ export const GamesPage = () => {
   const [search, setSearch] = useState(searchParams.get('search') || null);
   const [gamesCount, setGamesCount] = useState(0);
   const [genres, setGenres] = useState<Genre[] | undefined>(undefined);
+
+  const gamesToShow: Game[] = useSelector(
+    (state: RootState) => state.gamesToShow
+  );
 
   useEffect(() => {
     if (Number(searchParams.get('page')) !== page) {
@@ -93,7 +99,7 @@ export const GamesPage = () => {
         <GenreSelect onGenreChange={handleGenreChange} genres={genres} />
       )}
 
-      <CardList />
+      <CardList gamesToShow={gamesToShow} />
 
       <Pagination count={gamesCount} itemsPerPage={24} />
     </div>
