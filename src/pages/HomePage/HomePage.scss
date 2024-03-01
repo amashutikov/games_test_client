@@ -1,5 +1,6 @@
 .home_page {
   max-width: 1170px;
+  width: 100%;
   color: white;
 
   min-height: calc(100vh - 150px);
@@ -21,7 +22,7 @@
   }
 
   &__news {
-    height: 480px;
+    min-height: 480px;
     margin-bottom: 60px;
     background-color: rgba($color: black, $alpha: 0.2);
     padding: 20px;

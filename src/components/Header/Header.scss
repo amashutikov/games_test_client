@@ -1,3 +1,5 @@
+@import '../../styles/utils/mixins';
+
 .header {
   box-sizing: border-box;
   background-color: #1d1d1d;
@@ -40,7 +42,12 @@
   }
 
   &__actions {
-    display: flex;
+    display: none;
+
+    @include onTablet {
+      display: flex;
+    }
+
     align-items: center;
 
     &_links {

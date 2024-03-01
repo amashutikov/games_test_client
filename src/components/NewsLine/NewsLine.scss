@@ -1,3 +1,5 @@
+@import '../../styles/utils/mixins';
+
 .custom-link {
   text-decoration: none;
   color: inherit;
@@ -11,14 +13,24 @@
   padding: 15px;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
 
   cursor: pointer;
 
+  @include onTablet {
+    flex-direction: row;
+  }
+
   &__title {
-    font-size: 28px;
+    font-size: 18px;
     font-weight: 600;
-    line-height: 34px;
+    line-height: 24px;
+
+    @include onTablet {
+      font-size: 24px;
+      line-height: 34px;
+    }
   }
 
   &:hover .news_line__title {
@@ -27,8 +39,13 @@
   }
 
   &__info {
-    margin-left: 10px;
+    margin-top: 10px;
     text-decoration: none;
+
+    @include onTablet {
+      margin-top: 0;
+      margin-left: 10px;
+    }
   }
 
   &__time {
@@ -38,6 +55,13 @@
 
   &__image {
     border-radius: 2px;
-    max-height: 100px;
+    max-height: 300px;
+    width: 100%;
+    object-fit: cover;
+
+    @include onTablet {
+      max-height: 100px;
+      max-width: 200px;
+    }
   }
 }

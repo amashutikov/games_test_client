@@ -1,7 +1,10 @@
+@import '../../styles/utils/mixins';
+
 .carousel {
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
 
   &__loader {
     top: 0;
