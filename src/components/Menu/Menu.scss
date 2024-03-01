@@ -1,3 +1,5 @@
+@import '../../styles/utils';
+
 .menu {
   width: max-content;
 
@@ -13,9 +15,9 @@
 
     min-width: 250px;
 
-    background-color: #393939;
+    background-color: $menu-color;
 
-    border-radius: 10px 0 0 10px;
+    border-radius: $border-radius-small 0 0 $border-radius-small;
 
     position: absolute;
     right: 0;
@@ -48,17 +50,17 @@
       cursor: pointer;
 
       &:hover {
-        background-color: gray;
+        background-color: $text-gray;
       }
 
       &.active {
-        text-decoration: underline #3f9c13;
+        text-decoration: underline $main-green;
       }
     }
 
     &_underline {
       height: 1px;
-      background-color: #3f9c13;
+      background-color: $main-green;
 
       margin: 10px 0;
     }

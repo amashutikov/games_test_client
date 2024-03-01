@@ -1,5 +1,6 @@
+@import '../../styles/utils';
+
 .activate_page {
-  color: white;
   min-height: calc(100vh - 150px);
   margin: 0 20px;
 
@@ -14,6 +15,6 @@
   }
 
   &__link {
-    color: #3f9c13;
+    color: $main-green;
   }
 }

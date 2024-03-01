@@ -1,11 +1,13 @@
+@import '../../styles/utils';
+
 .register__button {
   height: 40px;
   width: 100%;
-  border-radius: 10px;
+  border-radius: $border-radius-small;
   border: none;
-  background-color: #3f9c13;
+  background-color: $main-green;
   transition-duration: 500ms;
-  color: white;
+  color: $c-white;
   font-size: 18px;
   font-weight: 600;
 

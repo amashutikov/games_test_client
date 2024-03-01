@@ -1,3 +1,5 @@
+@import '../../styles/utils';
+
 .settings {
   min-height: calc(100vh - 150px);
   width: 100%;
@@ -9,7 +11,7 @@
   &__container {
     padding: 20px;
     border: 1px solid black;
-    border-radius: 10px;
+    border-radius: $border-radius-small;
   }
 
   &__title {
@@ -41,7 +43,7 @@
     &_image {
       height: 80px;
       width: 80px;
-      border-radius: 10px;
+      border-radius: $border-radius-small;
       margin-right: 20px;
     }
 
@@ -77,18 +79,18 @@
       height: 56px;
       padding: 16.5px 14px;
       background-color: transparent;
-      border: 1px solid #363636;
+      border: 1px solid $search-color;
       border-radius: 5px;
-      background-color: #363636;
+      background-color: $search-color;
 
       transition-duration: 500ms;
 
-      color: white;
+      color: $c-white;
       font-family: inherit;
       font-size: 16px;
 
       &::placeholder {
-        color: lightgray;
+        color: $text-light-gray;
       }
 
       &:hover {
@@ -96,7 +98,7 @@
       }
 
       &:focus {
-        border-color: #3f9c13;
+        border-color: $main-green;
       }
 
       &:focus-visible {
@@ -104,23 +106,23 @@
       }
 
       &:active {
-        border-color: #3f9c13;
+        border-color: $main-green;
       }
 
       &.error {
-        border-color: red;
+        border-color: $c-red;
 
         &:hover,
         &:focus,
         &:focus-visible,
         &:active {
-          border-color: red;
+          border-color: $c-red;
         }
       }
 
       &.disabled {
-        border-color: gray;
-        background-color: gray;
+        border-color: $text-gray;
+        background-color: $text-gray;
       }
     }
 

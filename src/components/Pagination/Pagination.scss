@@ -1,3 +1,5 @@
+@import '../../styles/utils';
+
 .pagination {
   display: flex;
   align-items: center;
@@ -6,17 +8,17 @@
   align-self: center;
 
   &__arrow {
-    color: white;
+    color: $c-white;
     font-size: large;
     cursor: pointer;
 
     &:hover {
-      color: #3f9c13;
+      color: $main-green;
       transform: scale(1.1);
     }
 
     &.disabled {
-      color: gray;
+      color: $text-gray;
       cursor: default;
       transform: none;
     }
@@ -29,7 +31,7 @@
 
     &_element {
       border-radius: 50%;
-      color: white;
+      color: $c-white;
       height: 29px;
       width: 29px;
 
@@ -40,11 +42,11 @@
       cursor: pointer;
 
       &:hover {
-        background-color: #3f9c13;
+        background-color: $main-green;
       }
 
       &.active {
-        background-color: white;
+        background-color: $c-white;
         color: black;
         cursor: default;
       }

@@ -1,7 +1,7 @@
-@import '../../styles/utils/mixins';
+@import '../../styles/utils';
 
 .footer {
-  background-color: #1d1d1d;
+  background-color: $footer-color;
   height: 45px;
 
   padding: 15px;
@@ -9,5 +9,5 @@
   margin: 0;
   font-size: 45px;
   font-weight: 900;
-  color: white;
+  color: $c-white;
 }

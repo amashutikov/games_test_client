@@ -1,9 +1,11 @@
+@import '../../styles/utils';
+
 .register__label {
-  color: white;
+  color: $c-white;
 }
 
 .register__message {
-  color: red;
+  color: $c-red;
   display: flex;
   align-items: center;
 

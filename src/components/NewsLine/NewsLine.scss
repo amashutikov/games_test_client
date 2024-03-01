@@ -1,4 +1,4 @@
-@import '../../styles/utils/mixins';
+@import '../../styles/utils';
 
 .custom-link {
   text-decoration: none;
@@ -6,10 +6,10 @@
 }
 
 .news_line {
-  background-color: rgba($color: black, $alpha: 0.2);
+  background-color: $loader-background-02;
 
   border: 1px solid black;
-  border-radius: 10px;
+  border-radius: $border-radius-small;
   padding: 15px;
 
   display: flex;
@@ -35,7 +35,7 @@
 
   &:hover .news_line__title {
     text-decoration: underline;
-    text-decoration-color: #3f9c13;
+    text-decoration-color: $main-green;
   }
 
   &__info {
