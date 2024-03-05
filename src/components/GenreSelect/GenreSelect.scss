@@ -1,35 +1,38 @@
+@import '../../styles/utils';
+
 .genres {
   margin-bottom: 36px;
 
   font-weight: 800;
   font-size: 22px;
   line-height: 36px;
-  color: #eaeaea;
+  color: $text-light-gray;
 
   display: flex;
+  flex-direction: column;
 
-  @media (max-width: 800px) {
-    flex-direction: column;
+  @include onTablet {
+    flex-direction: row;
   }
 
   &__select {
     font-weight: 800;
     font-size: 22px;
-    color: #eaeaea;
+    color: $text-light-gray;
 
     background-color: transparent;
 
     outline: none;
 
-    margin-left: 20px;
+    margin-left: 0;
 
-    border-radius: 10px;
-    border-color: #3f9c13;
+    border-radius: $border-radius-small;
+    border-color: $main-green;
 
     padding: 5px;
 
-    @media (max-width: 800px) {
-      margin-left: 0;
+    @include onTablet {
+      margin-left: 20px;
     }
   }
 }

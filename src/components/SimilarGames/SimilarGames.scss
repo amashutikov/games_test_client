@@ -1,3 +1,5 @@
+@import '../../styles/utils';
+
 .similar {
   display: flex;
   flex-wrap: wrap;
@@ -11,7 +13,7 @@
     flex-direction: column;
     justify-content: center;
     border: 1px solid transparent;
-    border-radius: 10px;
+    border-radius: $border-radius-small;
 
     box-sizing: border-box;
 
@@ -19,7 +21,7 @@
 
     &:hover {
       cursor: pointer;
-      border: 1px solid #3f9c13;
+      border: 1px solid $main-green;
     }
   }
 
@@ -27,6 +29,6 @@
     object-fit: cover;
     height: 200px;
     width: 198px;
-    border-radius: 10px;
+    border-radius: $border-radius-small;
   }
 }

@@ -1,4 +1,4 @@
-@import '../../styles/utils/mixins';
+@import '../../styles/utils';
 
 .carousel {
   display: flex;
@@ -39,7 +39,7 @@
     margin-left: 20px;
     margin-right: 20px;
 
-    border-radius: 10px;
+    border-radius: $border-radius-small;
 
     overflow: hidden;
   }
@@ -58,17 +58,17 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: white;
+    color: $c-white;
 
     font-size: large;
 
     &:hover {
-      color: #3f9c13;
+      color: $main-green;
     }
 
     &.disabled {
       cursor: default;
-      color: gray;
+      color: $text-gray;
     }
   }
 
@@ -79,17 +79,17 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: white;
+    color: $c-white;
 
     font-size: large;
 
     &:hover {
-      color: #3f9c13;
+      color: $main-green;
     }
 
     &.disabled {
       cursor: default;
-      color: gray;
+      color: $text-gray;
     }
   }
 }

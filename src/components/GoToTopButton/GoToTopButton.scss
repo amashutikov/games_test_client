@@ -1,8 +1,10 @@
+@import '../../styles/utils';
+
 .top {
   width: 40px;
   height: 40px;
-  background-color: #3f9c13;
-  border-radius: 10px;
+  background-color: $main-green;
+  border-radius: $border-radius-small;
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -25,7 +27,7 @@
 
   &__icon {
     font-size: large;
-    color: white;
+    color: $c-white;
     transform: rotate(90deg);
     display: flex;
   }

@@ -1,19 +1,26 @@
-.home_page {
-  max-width: 1170px;
-  width: 100%;
-  color: white;
+@import '../../styles/utils';
 
-  min-height: calc(100vh - 150px);
+.home_page {
+  max-width: $max-page-width;
+  width: 100%;
+  color: $c-white;
+
+  min-height: $min-page-height-mobile;
+
+  @include onTablet {
+    min-height: $min-page-height;
+  }
+
   display: flex;
   flex-direction: column;
 
   &__carousel {
     position: relative;
 
-    background-color: rgba($color: black, $alpha: 0.2);
+    background-color: $loader-background-02;
     padding: 20px;
     min-height: 660px;
-    border-radius: 10px;
+    border-radius: $border-radius-small;
     margin-bottom: 30px;
   }
 
@@ -24,13 +31,13 @@
   &__news {
     min-height: 480px;
     margin-bottom: 60px;
-    background-color: rgba($color: black, $alpha: 0.2);
+    background-color: $loader-background-02;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: $border-radius-small;
   }
 
   &__subtitle {
-    color: white;
+    color: $c-white;
     font-style: inherit;
     font-size: 32px;
     font-weight: 600;

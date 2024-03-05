@@ -1,13 +1,19 @@
+@import '../../styles/utils';
+
 .favorites {
   box-sizing: border-box;
-  max-width: 1170px;
+  max-width: $max-page-width;
   padding: 20px;
   width: 100%;
 
-  min-height: calc(100vh - 150px);
+  min-height: $min-page-height-mobile;
+
+  @include onTablet {
+    min-height: $min-page-height;
+  }
 
   &__title {
-    color: #eaeaea;
+    color: $text-light-gray;
     font-weight: 900;
     font-size: 48px;
     margin-bottom: 12px;

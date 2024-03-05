@@ -1,17 +1,19 @@
+@import '../../styles/utils';
+
 .card {
   width: 300px;
   height: 543px;
   border: 1px solid #454545;
-  border-radius: 20px;
-  background-color: #1c1c1c;
+  border-radius: $border-radius-big;
+  background-color: $card-color;
   cursor: pointer;
   position: relative;
 
   &__loader {
     width: 100%;
     height: 100%;
-    border-radius: 20px;
-    background-color: rgba($color: black, $alpha: 0.5);
+    border-radius: $border-radius-big;
+    background-color: $loader-background-05;
 
     display: flex;
     align-items: center;
@@ -24,12 +26,12 @@
     position: absolute;
     right: 10px;
     bottom: 40%;
-    color: red;
+    color: $c-red;
 
     cursor: pointer;
 
     &.white {
-      color: white;
+      color: $c-white;
     }
 
     &:hover {
@@ -38,7 +40,7 @@
   }
 
   &:hover {
-    background-color: #242424;
+    background-color: $card-hover;
   }
 
   &_about {
@@ -48,7 +50,7 @@
   }
 
   &_image {
-    border-radius: 20px 20px 0 0;
+    border-radius: $border-radius-big $border-radius-big 0 0;
     width: 100%;
     height: 335px;
     object-fit: cover;
@@ -60,13 +62,13 @@
     font-weight: 800;
     font-size: 22px;
     line-height: 36px;
-    color: #eaeaea;
+    color: $text-light-gray;
   }
 
   &_description {
     font-weight: 300;
     font-size: 12px;
     line-height: 18px;
-    color: #afafaf;
+    color: $text-gray;
   }
 }

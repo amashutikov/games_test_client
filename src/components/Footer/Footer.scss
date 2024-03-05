@@ -1,13 +1,22 @@
-@import '../../styles/utils/mixins';
+@import '../../styles/utils';
 
 .footer {
-  background-color: #1d1d1d;
-  height: 45px;
+  box-sizing: border-box;
+  background-color: $footer-color;
+  height: 50px;
+
+  @include onTablet {
+    height: 75px;
+  }
 
   padding: 15px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   margin: 0;
   font-size: 45px;
   font-weight: 900;
-  color: white;
+  color: $c-white;
 }

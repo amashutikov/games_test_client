@@ -1,12 +1,18 @@
+@import '../../styles/utils';
+
 .not_found_page {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  color: white;
-  min-height: calc(100vh - 150px);
+  color: $c-white;
+  min-height: $min-page-height-mobile;
+
+  @include onTablet {
+    min-height: $min-page-height;
+  }
   width: 100%;
-  max-width: 1170px;
+  max-width: $max-page-width;
 
   &__title {
     font-size: 48px;

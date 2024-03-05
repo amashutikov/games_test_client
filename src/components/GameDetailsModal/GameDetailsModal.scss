@@ -1,18 +1,10 @@
-$ig-small-screen: 768px !default;
-$ig-xsmall-screen: 480px !default;
-$ig-white: #fff !default;
-$ig-black: #000 !default;
-$ig-blue: #3f9c13 !default;
-$ig-background-black: rgba(0, 0, 0, 0.4) !default;
-$ig-transparent: rgba(0, 0, 0, 0) !default;
-$ig-shadow: 0 2px 2px lighten($ig-black, 10%);
-
+@import '../../styles/utils';
 @import url(../../styles/imageGallery.scss);
 
 .modal {
   width: 100%;
   min-height: 100vh;
-  background-color: rgba($color: black, $alpha: 0.5);
+  background-color: $loader-background-05;
   top: 0;
   left: 0;
   position: fixed;
@@ -59,7 +51,8 @@ $ig-shadow: 0 2px 2px lighten($ig-black, 10%);
   }
 
   &__image {
-    width: 50%;
+    width: 80%;
+
     max-height: 400px;
     margin: 20px 0 0 20px;
     border-radius: 10px;
@@ -67,8 +60,8 @@ $ig-shadow: 0 2px 2px lighten($ig-black, 10%);
     object-position: center top;
     flex: 6;
 
-    @media (max-width: 900px) {
-      width: 80%;
+    @include onTablet {
+      width: 50%;
     }
   }
 

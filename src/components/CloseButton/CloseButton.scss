@@ -1,6 +1,8 @@
+@import '../../styles/utils';
+
 .close_button {
   border-radius: 50%;
-  border: 1px solid #3f9c13;
+  border: 1px solid $main-green;
   width: max-content;
 
   display: flex;
@@ -18,7 +20,7 @@
   &__icon {
     padding: 5px;
     transition-duration: 200ms;
-    color: #3f9c13;
+    color: $main-green;
 
     &:hover {
       transform: scale(1.05);

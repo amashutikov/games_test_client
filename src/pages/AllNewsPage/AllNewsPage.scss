@@ -1,9 +1,13 @@
-@import '../../styles/utils/mixins';
+@import '../../styles/utils';
 
 .all_news_page {
-  min-height: calc(100vh - 150px);
+  min-height: $min-page-height-mobile;
 
-  max-width: 1170px;
+  @include onTablet {
+    min-height: $min-page-height;
+  }
+
+  max-width: $max-page-width;
 
   width: 100%;
 
