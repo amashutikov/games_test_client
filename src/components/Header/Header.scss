@@ -5,7 +5,12 @@
   background-color: $footer-color;
   color: $c-white;
 
-  height: 75px;
+  height: 50px;
+
+  @include onTablet {
+    height: 75px;
+  }
+
   padding: 15px;
 
   display: flex;

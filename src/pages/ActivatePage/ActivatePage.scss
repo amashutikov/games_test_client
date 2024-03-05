@@ -1,7 +1,14 @@
 @import '../../styles/utils';
 
 .activate_page {
-  min-height: calc(100vh - 150px);
+  min-height: $min-page-height-mobile;
+
+  @include onTablet {
+    min-height: $min-page-height;
+  }
+
+  max-width: $max-page-width;
+
   margin: 0 20px;
 
   &__title {

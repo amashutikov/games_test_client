@@ -4,6 +4,11 @@
   margin: 0;
   color: $c-white;
   text-decoration: underline $main-green;
-  font-size: 45px;
+  font-size: 36px;
+
+  @include onTablet {
+    font-size: 45px;
+  }
+
   font-weight: 900;
 }

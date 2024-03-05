@@ -2,7 +2,11 @@
 
 .login_page {
   color: $c-white;
-  min-height: calc(100vh - 150px);
+  min-height: $min-page-height-mobile;
+
+  @include onTablet {
+    min-height: $min-page-height;
+  }
   width: 100%;
   max-width: 500px;
   padding: 10px;

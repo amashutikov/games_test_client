@@ -1,9 +1,13 @@
 @import '../../styles/utils';
 
 .settings {
-  min-height: calc(100vh - 150px);
+  min-height: $min-page-height-mobile;
+
+  @include onTablet {
+    min-height: $min-page-height;
+  }
   width: 100%;
-  max-width: 1170px;
+  max-width: $max-page-width;
   padding: 20px;
 
   box-sizing: border-box;

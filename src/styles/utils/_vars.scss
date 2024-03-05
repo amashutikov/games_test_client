@@ -28,3 +28,7 @@ $loader-background-07: rgba(
 
 $border-radius-big: 20px;
 $border-radius-small: 10px;
+
+$min-page-height: calc(100vh - 150px);
+$min-page-height-mobile: calc(100vh - 100px);
+$max-page-width: 1170px;

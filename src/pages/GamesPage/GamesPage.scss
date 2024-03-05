@@ -1,7 +1,7 @@
 @import '../../styles/utils';
 
 .games_page {
-  max-width: 1170px;
+  max-width: $max-page-width;
   padding: 20px;
   width: 100%;
   display: flex;
@@ -9,7 +9,11 @@
   flex-direction: column;
   margin-bottom: 60px;
 
-  min-height: calc(100vh - 150px);
+  min-height: $min-page-height-mobile;
+
+  @include onTablet {
+    min-height: $min-page-height;
+  }
 
   &__title {
     color: $text-light-gray;

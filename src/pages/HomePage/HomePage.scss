@@ -1,11 +1,16 @@
 @import '../../styles/utils';
 
 .home_page {
-  max-width: 1170px;
+  max-width: $max-page-width;
   width: 100%;
   color: $c-white;
 
-  min-height: calc(100vh - 150px);
+  min-height: $min-page-height-mobile;
+
+  @include onTablet {
+    min-height: $min-page-height;
+  }
+
   display: flex;
   flex-direction: column;
 
