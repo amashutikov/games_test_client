@@ -1,7 +1,7 @@
 # Project Name
 
 ## Description
-This project is currently in its early stage of development. It's still under active development, so expect frequent changes and updates.
+This project is a web platfor where you can browse computer games. It's still under active development, so expect frequent changes and updates.
 
 ## Technologies Used
 - Frontend:
@@ -41,4 +41,4 @@ To run this project locally, follow these steps:
 This app is currently under active development. While it is functional, there may be frequent changes and updates. 
 
 **Demo:**
-Check out the demo [here](https://github.com/amashutikov/games_test_client/edit/main/README.md).
+Check out the demo [here](https://amashutikov.github.io/games_test_client/#/).
