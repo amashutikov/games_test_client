@@ -24,6 +24,10 @@ This project is a web platfor where you can browse computer games. It's still un
   - [Nodemailer]
 - Other technologies, libraries, or tools may be used. Refer to package.json for details.
 
+## Third-party APIs
+- [IGDB API](https://www.igdb.com/api): This API is used to retrieve data about games and to search for games. It provides a wide range of information about various video games, including descriptions, ratings, release dates, and more.
+- [Rest Countries API](https://restcountries.com/): This API is used to fill the country field in account settings. It provides information about countries: names and flags.
+
 ## Project Structure
 - [Client](https://github.com/amashutikov/games_test_client): Contains the frontend code.
 - [Server](https://github.com/amashutikov/games_test_server): Contains the backend code. 
