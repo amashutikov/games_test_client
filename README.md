@@ -40,5 +40,5 @@ To run this project locally, follow these steps:
 **Note:**
 This app is currently under active development. While it is functional, there may be frequent changes and updates. 
 
-**Demo:**
+## Demo
 Check out the demo [here](https://amashutikov.github.io/games_test_client/#/).
