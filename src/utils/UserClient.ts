@@ -28,6 +28,10 @@ async function request(method: FetchMethod, data: any, endpoint: string) {
   const response = await fetch(url, options);
 
   if (!response.ok) {
+    if (response.status === 401) {
+      throw new Error('401');
+    }
+
     const errorText = await response.text();
     console.error('Error:', errorText);
     throw new Error();

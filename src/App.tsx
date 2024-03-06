@@ -44,7 +44,7 @@ function App() {
   return (
     <>
       <Header />
-      <main className='main'>
+      <main className='main' id='main'>
         <Routes>
           <Route path='/registration' element={<RegistrationPage />} />
 
