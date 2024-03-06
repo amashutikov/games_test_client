@@ -26,7 +26,7 @@ This project is a web platfor where you can browse computer games. It's still un
 
 ## Project Structure
 - [Client](https://github.com/amashutikov/games_test_client): Contains the frontend code.
-- [Server](https://github.com/amashutikov/games_test_server): Contains the backend code. `Currently private`
+- [Server](https://github.com/amashutikov/games_test_server): Contains the backend code. 
 
 ## Getting Started
 To run this project locally, follow these steps:
