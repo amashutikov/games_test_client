@@ -7,6 +7,7 @@ import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
 import { useState } from 'react';
 import { addLikedGame, removeLikedGame } from '../../api/user';
 import { useUser } from '../../contexts/UserContext';
+import { RegistrationModal } from '../RegistrationModal/RegistrationModal';
 
 type Props = {
   game: Game;
@@ -19,6 +20,7 @@ const BASE_IMAGE_SRC = 'https://images.igdb.com/igdb/image/upload/t_720p/';
 export const Card: React.FC<Props> = ({ game, onClick, liked = false }) => {
   const [hovered, setHovered] = useState(false);
   const [cardLoading, setCardLoading] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const { userData, updateUser } = useUser();
 
@@ -33,7 +35,16 @@ export const Card: React.FC<Props> = ({ game, onClick, liked = false }) => {
         updateUser({ ...res });
         setCardLoading(false);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        if (err.message === '401') {
+          setModalOpen(true);
+        }
+        setCardLoading(false);
+      });
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
   };
 
   const handleRemoveFromFavourites = (
@@ -56,6 +67,8 @@ export const Card: React.FC<Props> = ({ game, onClick, liked = false }) => {
       onClick={() => onClick(game.id)}
       onTouchEnd={() => onClick(game.id)}
     >
+      {modalOpen && <RegistrationModal onCloseModal={handleCloseModal} />}
+
       {cardLoading && (
         <div className='card__loader'>
           <Oval
