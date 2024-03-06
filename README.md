@@ -36,3 +36,9 @@ To run this project locally, follow these steps:
 3. Install dependencies: `npm install`
 4. Start the development servers: `npm start`
 5. Open your browser and navigate to `http://localhost:3000` to view the app or `http://localhost:3006` to access the server.
+
+**Note:**
+This app is currently under active development. While it is functional, there may be frequent changes and updates. 
+
+**Demo:**
+Check out the demo [here](https://github.com/amashutikov/games_test_client/edit/main/README.md).
