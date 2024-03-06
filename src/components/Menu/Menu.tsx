@@ -56,7 +56,10 @@ export const Menu = () => {
       .then(() => {
         updateUser(initialUserData);
 
-        if (location.pathname === '/settings') {
+        if (
+          location.pathname === '/settings' ||
+          location.pathname === '/favorites'
+        ) {
           navigate('/');
         }
       })
